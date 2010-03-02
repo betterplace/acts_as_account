@@ -3,7 +3,7 @@ module ActsAsAccount
     set_table_name :acts_as_account_journals
     
     has_many :postings
-    belongs_to :account
+    has_many :accounts, :through => :postings
     
     def transfer(amount, from_account, to_account)
       postings.create(:amount => amount * -1, :account => from_account)

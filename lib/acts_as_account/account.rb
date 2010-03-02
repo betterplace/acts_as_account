@@ -8,6 +8,8 @@ module ActsAsAccount
     has_many :postings
     has_many :journals, :through => :postings
     
+    validates_presence_of :holder
+    
     after_create :create_opening_balance
     
     def balance
