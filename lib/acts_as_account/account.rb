@@ -1,4 +1,4 @@
-module ActsAsBank
+module ActsAsAccount
   class Account < Base
     set_table_name :acts_as_account_accounts
     

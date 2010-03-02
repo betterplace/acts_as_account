@@ -1,3 +1,3 @@
-class User < ActsAsBank::Base
-  has_one :account, :class_name => "ActsAsBank::Account", :as => :holder
+class User < ActsAsAccount::Base
+  has_one :account, :class_name => "ActsAsAccount::Account", :as => :holder
 end
