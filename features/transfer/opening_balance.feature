@@ -7,5 +7,5 @@ Feature: Opening balance
     Given I create an account for user Norman with 10 €
     Then an account for user Norman exists
     And the account has 1 journal
-    And the journal has 1 posting with 10 €
+    And the journal has 1 posting with an amount of 10 €
     And the account balance is 10 €

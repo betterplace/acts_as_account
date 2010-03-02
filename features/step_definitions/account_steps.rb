@@ -1,6 +1,6 @@
 Given /^I create an account for user (\w+) with (\d+) €$/ do |name, opening_balance|
-  user = User.create!(:name => name)
-  user.create_account(:opening_balance => opening_balance)
+  @user = User.create!(:name => name)
+  @account = @user.create_account(:opening_balance => opening_balance)
 end
 
 Then /^an account for user (\w+) exists$/ do |name|
@@ -8,16 +8,19 @@ Then /^an account for user (\w+) exists$/ do |name|
   assert_not_nil @account
 end
 
-Then /^the account has (a|\d+) journals?$/ do |num_journals|
-  if ['a', '1'].include? num_journals
+Then /^the account has (\d+) journals?$/ do |num_journals|
+  num_journals = num_journals.to_i
+  
+  if num_journals == 1
     @journal = @account.journals.first
   else
     @journals = @account.journals
   end
-  assert_equal num_journals.to_i, @account.journals.count
+    
+  assert_equal num_journals, @account.journals.count
 end
 
-Then /^the journal has (\d+) postings? with (\d+) €$/ do |num_postings, amount|
+Then /^the journal has (\d+) postings? with an amount of (\d+) €$/ do |num_postings, amount|
   @postings = @journal.postings
   assert_equal num_postings.to_i, @postings.size
   @postings.each do |posting|

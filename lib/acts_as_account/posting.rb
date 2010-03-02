@@ -5,11 +5,7 @@ module ActsAsAccount
     belongs_to :account
     belongs_to :journal
     
-    before_create :set_account
-    
-    private
-      def set_account
-        self.account = journal.account unless account
-      end
+    validates_presence_of :account
+    validates_presence_of :journal
   end
 end

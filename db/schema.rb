@@ -7,7 +7,6 @@ ActiveRecord::Schema.define(:version => 1) do
   end
 
   create_table "acts_as_account_journals", :force => true do |t|
-    t.integer "account_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
