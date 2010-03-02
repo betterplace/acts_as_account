@@ -1,4 +1,4 @@
-When /^I create an account for user (\w+) with (\d+) €$/ do |name, opening_balance|
+Given /^I create an account for user (\w+) with (\d+) €$/ do |name, opening_balance|
   user = User.create!(:name => name)
   user.create_account(:opening_balance => opening_balance)
 end
