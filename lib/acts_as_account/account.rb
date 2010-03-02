@@ -15,12 +15,26 @@ module ActsAsAccount
       postings.sum(:amount)
     end
     
+    def transfer(amount, to_account)
+      with_journal do |journal|
+        journal.postings.create(:amount => amount * -1)
+        journal.postings.create(:amount => amount, :account => to_account)
+      end
+    end
+    
     private
       def create_opening_balance
         return unless @opening_balance
         
-        journal = journals.create
-        journal.postings.create(:amount => @opening_balance)
+        with_journal do |journal|
+          journal.postings.create(:amount => @opening_balance)
+        end
+      end
+      
+      def with_journal
+        returning(journals.create) do |journal|
+          yield journal
+        end
       end
   end
 end

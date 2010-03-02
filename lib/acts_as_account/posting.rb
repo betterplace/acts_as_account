@@ -9,7 +9,7 @@ module ActsAsAccount
     
     private
       def set_account
-        self.account = journal.account 
+        self.account = journal.account unless account
       end
   end
 end
