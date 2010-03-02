@@ -1,5 +1,5 @@
-acts_as_bank:
+acts_as_account:
   adapter: sqlite3
-  database: db/acts_as_bank.sqlite3
+  database: db/acts_as_account.sqlite3
   pool: 5
   timeout: 5000

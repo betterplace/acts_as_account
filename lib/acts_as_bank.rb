@@ -5,7 +5,7 @@ require 'activerecord'
 
 $: << File.expand_path(File.dirname(__FILE__))
 
-require 'acts_as_bank/base'
-require 'acts_as_bank/account'
-require 'acts_as_bank/journal'
-require 'acts_as_bank/posting'
+require 'acts_as_account/base'
+require 'acts_as_account/account'
+require 'acts_as_account/journal'
+require 'acts_as_account/posting'

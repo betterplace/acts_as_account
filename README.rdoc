@@ -1,4 +1,4 @@
-= acts_as_bank
+= acts_as_account
 
 Description goes here.
 

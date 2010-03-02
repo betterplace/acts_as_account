@@ -1,6 +1,6 @@
 module ActsAsBank
   class Account < Base
-    set_table_name :acts_as_bank_accounts
+    set_table_name :acts_as_account_accounts
     
     belongs_to :holder, :polymorphic => true
     

@@ -1,6 +1,6 @@
 module ActsAsBank
   class Posting < Base
-    set_table_name :acts_as_bank_postings
+    set_table_name :acts_as_account_postings
     
     belongs_to :account
     belongs_to :journal
