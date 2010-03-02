@@ -1,0 +1,5 @@
+acts_as_bank:
+  adapter: sqlite3
+  database: db/acts_as_bank.sqlite3
+  pool: 5
+  timeout: 5000
