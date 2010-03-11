@@ -1,5 +1,20 @@
 acts_as_account:
-  adapter: sqlite3
-  database: db/acts_as_account.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  encoding: utf8
+  database: acts_as_account
+  username: root
+  password:
+  host: localhost
+  
+  # adapter: sqlite3
+  # database: db/acts_as_account.sqlite3
+  # pool: 5
+  # timeout: 5000
+
+betterplace:
+  adapter: mysql
+  encoding: utf8
+  database: betterplace_production20100222
+  username: root
+  password:
+  host: localhost

@@ -2,6 +2,7 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table "acts_as_account_accounts", :force => true do |t|
     t.integer  "holder_id", :null => false
     t.string   "holder_type", :null => false
+    t.string   "name", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

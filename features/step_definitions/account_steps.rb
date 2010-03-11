@@ -1,6 +1,5 @@
-Given /^I create an account for user (\w+) with (\d+) €$/ do |name, opening_balance|
-  @user = User.create!(:name => name)
-  @account = @user.create_account(:opening_balance => opening_balance)
+Given /^I create a user (\w+)$/ do |name|
+  User.create!(:name => name)
 end
 
 Then /^an account for user (\w+) exists$/ do |name|
@@ -28,13 +27,29 @@ Then /^the journal has (\d+) postings? with an amount of (\d+) €$/ do |num_pos
   end
 end
 
-Then /^(\w+)'?s? account balance is (\d+) €$/ do |name, balance|
+Then /^(\w+)'?s? account balance is (-?\d+) €$/ do |name, balance|
   account = (name == 'the' ? @account : User.find_by_name(name).account)
   assert_equal balance.to_i, account.balance
 end
 
 When /^I transfer (\d+) € from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
+  @journal ||= ActsAsAccount::Journal.create
   from_account = User.find_by_name(from).account
   to_account = User.find_by_name(to).account
-  from_account.transfer(amount.to_i, to_account)
+  @journal.transfer(amount.to_i, from_account, to_account)
+end
+ 
+When "I commit" do
+  @journal.commit
+end
+
+When /^I don't commit$/ do
+  # do nothing
+end
+
+Then /^the balance\-sheet should be:$/ do |table|
+  table.hashes.each do |row|
+    assert_equal row['Balance'].to_i, User.find_by_name(row['User']).account.balance
+  end
+  # table is a Cucumber::Ast::Table
 end
