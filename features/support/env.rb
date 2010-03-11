@@ -1,3 +1,7 @@
+require 'rubygems'
+gem 'mysql', '2.7.0'
+gem 'activerecord', '2.0.5'
+
 require 'test/unit/assertions'
 World(Test::Unit::Assertions)
 
