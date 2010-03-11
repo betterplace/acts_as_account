@@ -1,7 +1,5 @@
-require 'rubygems'
-gem 'mysql', '2.7.0'
-gem 'activerecord', '2.0.5'
 require 'activerecord'
+require 'actionpack'
 
 $: << File.expand_path(File.dirname(__FILE__))
 
@@ -10,7 +8,14 @@ require 'acts_as_account/account'
 require 'acts_as_account/journal'
 require 'acts_as_account/posting'
 require 'acts_as_account/active_record_extensions'
+require 'acts_as_account/action_controller_extensions'
 
 ActiveRecord::Base.class_eval do
   include ActsAsAccount::ActiveRecordExtension
 end
+
+ActionController::Base.class_eval do
+  include ActsAsAccount::ActionControllerExtensions
+end
+
+require 'acts_as_account/global_account'
