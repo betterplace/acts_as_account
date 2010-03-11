@@ -8,6 +8,12 @@ module ActsAsAccount
     
     validates_presence_of :holder
     
+    class << self
+      def for(name)
+        GlobalAccount.find_or_create_by_name(name.to_s).account
+      end
+    end
+    
     def balance
       postings.empty? ? 0 : postings.sum(:amount)
     end
