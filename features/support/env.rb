@@ -1,6 +1,7 @@
 require 'rubygems'
 gem 'mysql', '2.7.0'
 gem 'activerecord', '2.0.5'
+gem 'actionpack', '2.0.5'
 
 require 'test/unit/assertions'
 World(Test::Unit::Assertions)
@@ -17,3 +18,11 @@ DatabaseCleaner.strategy = :transaction
 Dir[File.dirname(__FILE__) + '/../step_definitions/*.rb'].each { |file| require file }
 
 require File.dirname(__FILE__) + '/user'
+
+After do
+  begin
+    ActsAsAccount::Journal.clear_current
+  rescue ActsAsAccount::Journal::UncommitedError
+  end
+end
+

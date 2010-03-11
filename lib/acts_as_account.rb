@@ -1,5 +1,5 @@
 require 'activerecord'
-require 'actionpack'
+require 'action_controller'
 
 $: << File.expand_path(File.dirname(__FILE__))
 

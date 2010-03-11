@@ -1,6 +1,8 @@
 module ActsAsAccount
   class Journal < Base
-    class Uncommited < Exception; end 
+    class UncommitedError < StandardError
+      attr_accessor :journal
+    end 
     
     set_table_name :acts_as_account_journals
     
@@ -9,13 +11,20 @@ module ActsAsAccount
     
     class << self
       def current
-        Thread.current[:acts_as_account_current] ||= create
+        Thread.current[:acts_as_account_current] ||= create!
       end
       
       def clear_current
         if journal = Thread.current[:acts_as_account_current]
-          raise Uncommited if journal.uncommitted?
-          Thread.current[:acts_as_account_current] = nil
+          begin
+            if journal.uncommitted?
+              uncommited_error = UncommitedError.new
+              uncommited_error.journal = journal
+              raise uncommited_error
+            end
+          ensure
+            Thread.current[:acts_as_account_current] = nil
+          end
         end
       end
     end
@@ -25,7 +34,7 @@ module ActsAsAccount
     end
     
     def commit
-      transaction do 
+      transaction do
         @uncommitted_postings.each(&:save!)
         @uncommitted_postings = []
       end
@@ -36,6 +45,5 @@ module ActsAsAccount
       @uncommitted_postings << postings.build(:amount => amount * -1, :account => from_account)
       @uncommitted_postings << postings.build(:amount => amount, :account => to_account)
     end
-
   end
 end
