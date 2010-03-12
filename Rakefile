@@ -55,6 +55,7 @@ end
 namespace :test do
   desc "create test database out of db/schema.rb"
   task :create_database do
+    require 'rubygems'
     require 'active_record'
     ActiveRecord::Base.establish_connection(YAML.load_file(File.dirname(__FILE__) + '/db/database.yml')['acts_as_account'])
     load(File.dirname(__FILE__) + '/db/schema.rb')
