@@ -6,6 +6,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  add_index "acts_as_account_accounts", ["holder_id", "holder_type", "name"], :name => 'account_unique', :unique => true
 
   create_table "acts_as_account_journals", :force => true do |t|
     t.datetime "created_at"

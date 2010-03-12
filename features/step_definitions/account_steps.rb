@@ -72,3 +72,43 @@ end
 Then /^the Journal should know all transfers were committed$/ do
   assert !ActsAsAccount::Journal.current.uncommitted?
 end
+
+When "I clear the Journal" do
+  @last_exception = nil
+  begin
+    ActsAsAccount::Journal.clear_current
+  rescue Exception => @last_exception
+  end
+end
+
+Then /^I fail with (.+)$/ do |exception|
+  assert_equal exception.constantize, @last_exception.class
+end
+
+When /^I create a Journal via (.+)$/ do |method|
+  @last_exception = nil
+  begin
+    eval <<-EOT
+    @journal = ActsAsAccount::Journal.#{method}
+    EOT
+  rescue Exception => @last_exception
+  end
+end
+
+Then /^I have a Journal$/ do
+  assert_equal ActsAsAccount::Journal, @journal.class
+end
+
+Then /^User (\w+) has an Account named (\w+)$/ do |user_name, account_name|
+  @account = User.find_by_name(user_name).account
+  assert_equal account_name, @account.name
+end
+
+Given /^I create an Account named (\w+) for User (\w+)$/ do |account_name, user_name|
+  user = User.find_by_name(user_name)
+  @created_account = ActsAsAccount::Account.create!(:holder => user, :name => account_name)
+end
+
+Then /^I get the original account$/ do
+  assert_equal @account, @created_account
+end
