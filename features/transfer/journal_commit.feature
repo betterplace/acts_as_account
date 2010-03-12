@@ -43,4 +43,8 @@ Feature: Commit
     Then the current Journal should know there are uncommited transfers
     When I commit
     Then the Journal should know all transfers were committed
-    
+
+  Scenario: Journal should signal uncommitted changes when cleared
+    When I transfer 30 € from A's account to B's account
+    And I clear the Journal
+    Then I fail with ActsAsAccount::Journal::UncommitedError
