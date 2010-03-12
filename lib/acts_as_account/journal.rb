@@ -10,6 +10,10 @@ module ActsAsAccount
     has_many :accounts, :through => :postings
     
     class << self
+      private :new
+      private :create
+      private :create!
+
       def current
         Thread.current[:acts_as_account_current] ||= create!
       end
