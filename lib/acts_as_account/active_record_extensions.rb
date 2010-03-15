@@ -12,8 +12,12 @@ module ActsAsAccount
     end
   
     module ClassMethods
+      
       def has_account(name = :default)
         has_one "#{name}_account", :conditions => "name = '#{name}'", :class_name => "ActsAsAccount::Account", :as => :holder
+        unless instance_methods.include?('accounts')
+          has_many :accounts, :class_name => "ActsAsAccount::Account", :as => :holder
+        end
       end
     end
   end
