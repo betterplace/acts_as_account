@@ -39,8 +39,8 @@ module ActsAsAccount
     
     def commit
       transaction do
-        @uncommitted_postings.each(&:save!)
-        @uncommitted_postings = []
+        @uncommitted_postings.each(&:save_without_validation)
+        @uncommitted_postings.clear
       end
     end
     
