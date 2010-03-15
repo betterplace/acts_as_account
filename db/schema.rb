@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 1) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  add_index "acts_as_account_postings", "account_id"
+  add_index "acts_as_account_postings", "journal_id"
 
   create_table "acts_as_account_global_accounts", :force => true do |t|
     t.string   "name", :null => false
