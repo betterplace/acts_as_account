@@ -7,7 +7,11 @@ module ActsAsAccount
           __send__("#{name}_account") || __send__("create_#{name}_account", :name => name.to_s) 
         end
         
-        establish_connection("#{RAILS_ENV}_acts_as_account") if defined? RAILS_ENV
+        begin
+          establish_connection("#{RAILS_ENV}_acts_as_account")
+        rescue ActiveRecord::AdapterNotSpecified
+          # If you want an isolated connection specify connection in database.yml
+        end
       end
     end
   
