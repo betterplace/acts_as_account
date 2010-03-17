@@ -38,16 +38,25 @@ module ActsAsAccount
     end
     
     def commit
-      transaction do
-        @uncommitted_postings.each(&:save_without_validation)
-        @uncommitted_postings.clear
+      if uncommitted?
+        transaction do
+          @uncommitted_postings.each(&:save_without_validation)
+          @uncommitted_postings.clear
+        end
       end
     end
     
     def transfer(amount, from_account, to_account)
       @uncommitted_postings ||= []
-      @uncommitted_postings << postings.build(:amount => amount * -1, :account => from_account)
-      @uncommitted_postings << postings.build(:amount => amount, :account => to_account)
+      
+      @uncommitted_postings << postings.build(
+        :amount => amount * -1, 
+        :account => from_account, 
+        :other_account => to_account)
+      @uncommitted_postings << postings.build(
+        :amount => amount, 
+        :account => to_account,
+        :other_account => from_account)
     end
   end
 end
