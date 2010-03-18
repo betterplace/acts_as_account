@@ -21,6 +21,12 @@ if a Request has left the uncommitted changes in the system.
 
 * http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html
 
+== Todo
+
+* add foreign key constrints
+* ask axel to harden the schema
+* add transaction isolation tests
+
 == Copyright
 
 Copyright (c) 2010 betterplace
