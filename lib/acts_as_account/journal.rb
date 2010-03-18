@@ -24,7 +24,8 @@ module ActsAsAccount
             if journal.uncommitted?
               uncommited_error = UncommitedError.new
               uncommited_error.journal = journal
-              raise uncommited_error
+              logger.debug { "ActsAsAccount::UncommitedError: #{uncommited_error.inspect}"} if logger
+#              raise uncommited_error
             end
           ensure
             Thread.current[:acts_as_account_current] = nil
@@ -34,29 +35,34 @@ module ActsAsAccount
     end
     
     def uncommitted?
-      !!(@uncommitted_postings && @uncommitted_postings.any?)
+      !!(@uncommitted_transfers && @uncommitted_transfers.any?)
     end
     
     def commit
-      if uncommitted?
-        transaction do
-          @uncommitted_postings.each(&:save_without_validation)
-          @uncommitted_postings.clear
+      return unless uncommitted?
+
+      transaction do
+        @uncommitted_transfers.each do |(amount, from_account, to_account)|
+          logger.debug { "ActsAsAccount::Journal.commit amount: #{amount} from:#{from_account.id} to:#{to_account.id}" } if logger
+      
+          postings.build(
+            :amount => amount * -1, 
+            :account => from_account, 
+            :other_account => to_account).save_without_validation
+              
+          postings.build(
+            :amount => amount, 
+            :account => to_account, 
+            :other_account => from_account).save_without_validation
         end
+        
+        @uncommitted_transfers.clear
       end
     end
     
     def transfer(amount, from_account, to_account)
-      @uncommitted_postings ||= []
-      
-      @uncommitted_postings << postings.build(
-        :amount => amount * -1, 
-        :account => from_account, 
-        :other_account => to_account)
-      @uncommitted_postings << postings.build(
-        :amount => amount, 
-        :account => to_account,
-        :other_account => from_account)
+      @uncommitted_transfers ||= []
+      @uncommitted_transfers << [amount, from_account, to_account]
     end
   end
 end
