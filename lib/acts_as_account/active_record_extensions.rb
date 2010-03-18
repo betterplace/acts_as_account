@@ -8,7 +8,7 @@ module ActsAsAccount
         end
         
         begin
-          establish_connection("#{RAILS_ENV}_acts_as_account")
+          establish_connection("#{RAILS_ENV}_acts_as_account") if defined? RAILS_ENV
         rescue ActiveRecord::AdapterNotSpecified
           # If you want an isolated connection specify connection in database.yml
         end
