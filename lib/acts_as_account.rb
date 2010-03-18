@@ -1,4 +1,4 @@
-require 'activerecord'
+require 'active_record'
 require 'action_controller'
 
 $: << File.expand_path(File.dirname(__FILE__))
