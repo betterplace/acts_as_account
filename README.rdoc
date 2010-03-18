@@ -2,16 +2,25 @@
 
 Description goes here.
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+
+== Theory
+
+ActsAsAccount implements a "Double Entry Accounting" system for your 
+Rails-models.
+
+It hooks into ActiveRecord and allows to add accounts to any model by 
+simply means of adding "has_account" to your model. Because the accounts
+are connected via a has_many relation no migration to the account-hoder
+tables is needed.
+
+
+We also hook into the ActionController request cycle to warn the developer 
+if a Request has left the uncommitted changes in the system.
+
+== Links
+
+* http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html
 
 == Copyright
 
-Copyright (c) 2010 Thies C. Arntzen. See LICENSE for details.
+Copyright (c) 2010 betterplace
