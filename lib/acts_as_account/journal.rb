@@ -25,7 +25,7 @@ module ActsAsAccount
               uncommited_error = UncommitedError.new
               uncommited_error.journal = journal
               logger.debug { "ActsAsAccount::UncommitedError: #{uncommited_error.inspect}"} if logger
-#              raise uncommited_error
+              raise uncommited_error
             end
           ensure
             Thread.current[:acts_as_account_current] = nil
@@ -42,27 +42,29 @@ module ActsAsAccount
       return unless uncommitted?
 
       transaction do
-        @uncommitted_transfers.each do |(amount, from_account, to_account)|
-          logger.debug { "ActsAsAccount::Journal.commit amount: #{amount} from:#{from_account.id} to:#{to_account.id}" } if logger
+        @uncommitted_transfers.each do |(amount, from_account, to_account, reference)|
+          logger.debug { "ActsAsAccount::Journal.commit amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id})" } if logger
       
           postings.build(
             :amount => amount * -1, 
             :account => from_account, 
-            :other_account => to_account).save_without_validation
-              
+            :other_account => to_account,
+            :reference => reference).save_without_validation
+          
           postings.build(
             :amount => amount, 
             :account => to_account, 
-            :other_account => from_account).save_without_validation
+            :other_account => from_account,
+            :reference => reference).save_without_validation
         end
         
         @uncommitted_transfers.clear
       end
     end
     
-    def transfer(amount, from_account, to_account)
+    def transfer(amount, from_account, to_account, reference = nil)
       @uncommitted_transfers ||= []
-      @uncommitted_transfers << [amount, from_account, to_account]
+      @uncommitted_transfers << [amount, from_account, to_account, reference]
     end
   end
 end

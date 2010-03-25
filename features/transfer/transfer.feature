@@ -18,3 +18,12 @@ Feature: Transfer
     And I commit
     Then the global wirecard account balance is -30 €
     And the global anonymous_donation account balance is 30 €
+
+  Scenario: I transfer money between accounts having a domain object
+    Given I create a user Thies
+    Given I create a user Norman
+    When I transfer 50 € from Thies's account to Norman's account referencing a Cheque with number 8723
+    And I commit
+    Then Thies's account balance is -50 €
+    And Norman's account balance is 50 €
+    And all postings reference Cheque with number 8723

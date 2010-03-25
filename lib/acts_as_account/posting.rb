@@ -5,9 +5,6 @@ module ActsAsAccount
     belongs_to :account
     belongs_to :other_account, :class_name => 'Account'
     belongs_to :journal
-    
-    validates_presence_of :account
-    validates_presence_of :other_account
-    validates_presence_of :journal
+    belongs_to :reference, :polymorphic => true
   end
 end

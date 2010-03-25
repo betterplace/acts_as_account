@@ -23,6 +23,14 @@ module ActsAsAccount
           has_many :accounts, :class_name => "ActsAsAccount::Account", :as => :holder
         end
       end
+      
+      def has_global_account(name)
+        class_eval <<-EOS
+          def account
+            ActsAsAccount::Account.for(:#{name})
+          end
+        EOS
+      end
     end
   end
 end

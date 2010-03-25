@@ -42,13 +42,13 @@ end
 When /^I transfer (\d+) € from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
   from_account = User.find_by_name(from).account
   to_account = User.find_by_name(to).account
-  ActsAsAccount::Journal.current.transfer(amount.to_i, from_account, to_account)
+  ActsAsAccount::Journal.current.transfer(amount.to_i, from_account, to_account, @reference)
 end
 
 When /^I transfer (\d+) € from global (\w+) account to global (\w+) account$/ do |amount, from, to|
   from_account = ActsAsAccount::Account.for(from)
   to_account = ActsAsAccount::Account.for(to)
-  ActsAsAccount::Journal.current.transfer(amount.to_i, from_account, to_account)
+  ActsAsAccount::Journal.current.transfer(amount.to_i, from_account, to_account, @reference)
 end
  
 When "I commit" do
@@ -112,3 +112,16 @@ end
 Then /^I get the original account$/ do
   assert_equal @account, @created_account
 end
+
+Given /I transfer (\d+) € from (\w+)'s account to (\w+)'s account referencing a (\w+) with (\w+) (\w+)$/ do |amount, from, to, reference, name, value|
+  @reference = reference.constantize.create!(name => value)
+  Given "I transfer #{amount} € from #{from}'s account to #{to}'s account"
+end
+
+Then /^all postings reference (\w+) with (\w+) (\w+)$/ do |reference_class, name, value|
+  reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
+  ActsAsAccount::Posting.all.each do |posting|
+    assert_equal reference, posting.reference 
+  end
+end
+
