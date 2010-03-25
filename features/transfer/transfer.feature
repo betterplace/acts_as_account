@@ -27,3 +27,12 @@ Feature: Transfer
     Then Thies's account balance is -50 €
     And Norman's account balance is 50 €
     And all postings reference Cheque with number 8723
+
+  Scenario: I transfer money between accounts setting the booking time
+    Given I create a user Thies
+    Given I create a user Norman
+    When I transfer 50 € from Thies's account to Norman's account and specify 22.05.1968 07:45 as the booking time
+    And I commit
+    Then Thies's account balance is -50 €
+    And Norman's account balance is 50 €
+    And all postings have 22.05.1968 07:45 as the booking time

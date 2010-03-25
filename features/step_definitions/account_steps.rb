@@ -1,9 +1,15 @@
+include ActsAsAccount
+
+def german_date_time_to_local(datestring, timestring)
+  Time.local(*(datestring.split(".").reverse + timestring.split(":")).map(&:to_i))
+end
+
 Given /^I create a user (\w+)$/ do |name|
   User.create!(:name => name)
 end
 
 Given /^I create a global ([_\w]+) account$/ do |name|
-  ActsAsAccount::Account.for(name)
+  Account.for(name)
 end
 
 Then /^an account for user (\w+) exists$/ do |name|
@@ -36,23 +42,23 @@ Then /^(\w+)'s account balance is (-?\d+) €$/ do |name, balance|
 end
 
 Then /^the global (\w+) account balance is (-?\d+) €$/ do |name, balance|
-  assert_equal balance.to_i, ActsAsAccount::Account.for(name).balance
+  assert_equal balance.to_i, Account.for(name).balance
 end
 
 When /^I transfer (\d+) € from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
   from_account = User.find_by_name(from).account
   to_account = User.find_by_name(to).account
-  ActsAsAccount::Journal.current.transfer(amount.to_i, from_account, to_account, @reference)
+  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
 end
 
 When /^I transfer (\d+) € from global (\w+) account to global (\w+) account$/ do |amount, from, to|
-  from_account = ActsAsAccount::Account.for(from)
-  to_account = ActsAsAccount::Account.for(to)
-  ActsAsAccount::Journal.current.transfer(amount.to_i, from_account, to_account, @reference)
+  from_account = Account.for(from)
+  to_account = Account.for(to)
+  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
 end
  
 When "I commit" do
-  ActsAsAccount::Journal.current.commit
+  Journal.current.commit
 end
 
 When /^I don't commit$/ do
@@ -66,17 +72,17 @@ Then /^the balance\-sheet should be:$/ do |table|
 end
 
 Then /^the current Journal should know there are uncommited transfers$/ do
-  assert ActsAsAccount::Journal.current.uncommitted?
+  assert Journal.current.uncommitted?
 end
 
 Then /^the Journal should know all transfers were committed$/ do
-  assert !ActsAsAccount::Journal.current.uncommitted?
+  assert !Journal.current.uncommitted?
 end
 
 When "I clear the Journal" do
   @last_exception = nil
   begin
-    ActsAsAccount::Journal.clear_current
+    Journal.clear_current
   rescue Exception => @last_exception
   end
 end
@@ -89,14 +95,14 @@ When /^I create a Journal via (.+)$/ do |method|
   @last_exception = nil
   begin
     eval <<-EOT
-    @journal = ActsAsAccount::Journal.#{method}
+    @journal = Journal.#{method}
     EOT
   rescue Exception => @last_exception
   end
 end
 
 Then /^I have a Journal$/ do
-  assert_equal ActsAsAccount::Journal, @journal.class
+  assert_equal Journal, @journal.class
 end
 
 Then /^User (\w+) has an Account named (\w+)$/ do |user_name, account_name|
@@ -106,7 +112,7 @@ end
 
 Given /^I create an Account named (\w+) for User (\w+)$/ do |account_name, user_name|
   user = User.find_by_name(user_name)
-  @created_account = ActsAsAccount::Account.create!(:holder => user, :name => account_name)
+  @created_account = Account.create!(:holder => user, :name => account_name)
 end
 
 Then /^I get the original account$/ do
@@ -120,8 +126,19 @@ end
 
 Then /^all postings reference (\w+) with (\w+) (\w+)$/ do |reference_class, name, value|
   reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
-  ActsAsAccount::Posting.all.each do |posting|
+  Posting.all.each do |posting|
     assert_equal reference, posting.reference 
   end
 end
 
+Given /^I transfer (\d+) € from (\w+)'s account to (\w+)'s account and specify (\S+) (\S+) as the booking time$/ do |amount, from, to, booking_date, booking_time|
+  @valuta = german_date_time_to_local(booking_date, booking_time)
+  Given "I transfer #{amount} € from #{from}'s account to #{to}'s account"
+end
+
+Then /^all postings have (\S+) (\S+) as the booking time$/ do |booking_date, booking_time|
+  valuta = german_date_time_to_local(booking_date, booking_time)
+  Posting.all.each do |posting|
+    assert_equal valuta, posting.valuta
+  end
+end
