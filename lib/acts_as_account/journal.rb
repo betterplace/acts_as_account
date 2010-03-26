@@ -1,9 +1,5 @@
 module ActsAsAccount
-  class Journal < Base
-    class UncommitedError < StandardError
-      attr_accessor :journal
-    end 
-    
+  class Journal < ActiveRecord::Base
     set_table_name :acts_as_account_journals
     
     has_many :postings
@@ -19,54 +15,28 @@ module ActsAsAccount
       end
       
       def clear_current
-        if journal = Thread.current[:acts_as_account_current]
-          begin
-            if journal.uncommitted?
-              uncommited_error = UncommitedError.new
-              uncommited_error.journal = journal
-              logger.debug { "ActsAsAccount::UncommitedError: #{uncommited_error.inspect}"} if logger
-              raise uncommited_error
-            end
-          ensure
-            Thread.current[:acts_as_account_current] = nil
-          end
-        end
+        Thread.current[:acts_as_account_current] = nil
       end
     end
-    
-    def uncommitted?
-      !!(@uncommitted_transfers && @uncommitted_transfers.any?)
-    end
-    
-    def commit
-      return unless uncommitted?
 
-      transaction do
-        @uncommitted_transfers.each do |(amount, from_account, to_account, reference, valuta)|
-          logger.debug { "ActsAsAccount::Journal.commit amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) valuta:#{valuta}" } if logger
-
-          postings.build(
-            :amount => amount * -1, 
-            :account => from_account, 
-            :other_account => to_account,
-            :reference => reference,
-            :valuta => valuta).save_without_validation
-          
-          postings.build(
-            :amount => amount, 
-            :account => to_account, 
-            :other_account => from_account,
-            :reference => reference,
-            :valuta => valuta).save_without_validation
-        end
-        
-        @uncommitted_transfers.clear
-      end
-    end
-    
     def transfer(amount, from_account, to_account, reference = nil, valuta = Time.now)
-      @uncommitted_transfers ||= []
-      @uncommitted_transfers << [amount, from_account, to_account, reference, valuta]
+      transaction do
+        logger.debug { "ActsAsAccount::Journal.transfer amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) valuta:#{valuta}" } if logger
+
+        postings.build(
+          :amount => amount * -1, 
+          :account => from_account, 
+          :other_account => to_account,
+          :reference => reference,
+          :valuta => valuta).save_without_validation
+          
+        postings.build(
+          :amount => amount, 
+          :account => to_account, 
+          :other_account => from_account,
+          :reference => reference,
+          :valuta => valuta).save_without_validation
+      end
     end
   end
 end

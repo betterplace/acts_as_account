@@ -1,2 +1,2 @@
-class Cheque < ActsAsAccount::Base
+class Cheque < ActiveRecord::Base
 end

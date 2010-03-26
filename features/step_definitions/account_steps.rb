@@ -57,33 +57,9 @@ When /^I transfer (\d+) € from global (\w+) account to global (\w+) account$/ 
   Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
 end
  
-When "I commit" do
-  Journal.current.commit
-end
-
-When /^I don't commit$/ do
-  # does nothing
-end
-
 Then /^the balance\-sheet should be:$/ do |table|
   table.hashes.each do |row|
     assert_equal row['Balance'].to_i, User.find_by_name(row['User']).account.balance
-  end
-end
-
-Then /^the current Journal should know there are uncommited transfers$/ do
-  assert Journal.current.uncommitted?
-end
-
-Then /^the Journal should know all transfers were committed$/ do
-  assert !Journal.current.uncommitted?
-end
-
-When "I clear the Journal" do
-  @last_exception = nil
-  begin
-    Journal.clear_current
-  rescue Exception => @last_exception
   end
 end
 

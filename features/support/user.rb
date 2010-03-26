@@ -1,3 +1,3 @@
-class User < ActsAsAccount::Base
+class User < ActiveRecord::Base
   has_account
 end

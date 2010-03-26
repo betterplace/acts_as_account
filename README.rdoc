@@ -23,7 +23,6 @@ if a Request has left the uncommitted changes in the system.
 
 == Todo
 
-* add foreign key constrints
 * ask axel to harden the schema
 * add transaction isolation tests
 

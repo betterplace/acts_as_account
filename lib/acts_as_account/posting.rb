@@ -1,5 +1,5 @@
 module ActsAsAccount
-  class Posting < Base
+  class Posting < ActiveRecord::Base
     set_table_name :acts_as_account_postings
     
     belongs_to :account
