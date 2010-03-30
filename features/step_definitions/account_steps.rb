@@ -118,3 +118,8 @@ Then /^all postings have (\S+) (\S+) as the booking time$/ do |booking_date, boo
     assert_equal valuta, posting.valuta
   end
 end
+
+Then /^(\w+) with (\w+) (\w+) references all postings$/ do |reference_class, name, value|
+  reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
+  assert_equal Posting.all, reference.postings 
+end

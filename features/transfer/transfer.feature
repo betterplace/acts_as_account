@@ -24,6 +24,7 @@ Feature: Transfer
     Then Thies's account balance is -50 €
     And Norman's account balance is 50 €
     And all postings reference Cheque with number 8723
+    And Cheque with number 8723 references all postings
 
   Scenario: I transfer money between accounts setting the booking time
     Given I create a user Thies

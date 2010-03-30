@@ -18,6 +18,10 @@ module ActsAsAccount
         end
       end
       
+      def has_postings
+        has_many :postings, :class_name => "ActsAsAccount::Posting", :as => :reference
+      end
+
       def has_global_account(name)
         class_eval <<-EOS
           def account
