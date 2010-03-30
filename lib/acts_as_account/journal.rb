@@ -41,8 +41,13 @@ module ActsAsAccount
           :reference => reference,
           :valuta => valuta).save_without_validation
 
-        from_account.increment!(:balance, -amount)
-        to_account.increment!(:balance, amount)
+        from_account.increment(:balance, -amount)
+        from_account.increment(:postings_count, 1)
+        from_account.save_without_validation
+        
+        to_account.increment(:balance, amount)
+        to_account.increment(:postings_count, 1)
+        to_account.save_without_validation
       end
     end
   end
