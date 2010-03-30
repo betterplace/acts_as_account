@@ -10,7 +10,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string   "holder_type", :null => false
     t.string   "name", :null => false
     
-    t.integer  "amount", :default => 0
+    t.integer  "balance", :default => 0
     
     t.datetime "created_at"
     t.datetime "updated_at"

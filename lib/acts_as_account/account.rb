@@ -45,9 +45,5 @@ module ActsAsAccount
         record || raise
       end
     end
-    
-    def balance
-      postings.empty? ? 0 : postings.sum(:amount)
-    end
   end
 end
