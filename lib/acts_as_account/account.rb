@@ -5,8 +5,12 @@ module ActsAsAccount
     belongs_to :holder, :polymorphic => true
     has_many :postings
     has_many :journals, :through => :postings
-    
-    validates_presence_of :holder
+
+    # TODO: discuss with norman: 
+    # validates_presence_of will force an ActiveRecord::find on the object
+    # but we have to create accounts for deleted holder!
+    #
+    # validates_presence_of :holder
     
     class << self
       def for(name)
