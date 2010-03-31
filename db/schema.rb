@@ -12,6 +12,7 @@ ActiveRecord::Schema.define(:version => 1) do
     
     t.integer  "balance", :default => 0
     t.integer  "postings_count", :default => 0
+    t.datetime  "last_valuta"
     
     t.datetime "created_at"
     t.datetime "updated_at"

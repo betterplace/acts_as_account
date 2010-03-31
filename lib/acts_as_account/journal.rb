@@ -23,32 +23,30 @@ module ActsAsAccount
       transaction do
         logger.debug { "ActsAsAccount::Journal.transfer amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) valuta:#{valuta}" } if logger
         
-        from_account.lock!
-        to_account.lock!
+        # to avoid possible deadlocks we need to ensure that the locking order is always
+        # the same therfore the sort by id. 
+        [from_account, to_account].sort_by(&:id).map(&:lock!)
 
-        postings.build(
-          :amount => amount * -1, 
-          :account => from_account, 
-          :other_account => to_account,
-          :reference => reference,
-          :valuta => valuta).save_without_validation
-        
-        
-        postings.build(
-          :amount => amount, 
-          :account => to_account, 
-          :other_account => from_account,
-          :reference => reference,
-          :valuta => valuta).save_without_validation
-
-        from_account.increment(:balance, -amount)
-        from_account.increment(:postings_count, 1)
-        from_account.save_without_validation
-        
-        to_account.increment(:balance, amount)
-        to_account.increment(:postings_count, 1)
-        to_account.save_without_validation
+        add_posting(amount * -1, from_account,   to_account, reference, valuta)
+        add_posting(amount,        to_account, from_account, reference, valuta)
       end
     end
+    
+    private 
+      def add_posting(amount, account, other_account, reference, valuta)
+        posting = postings.build(
+          :amount => amount, 
+          :account => account, 
+          :other_account => other_account,
+          :reference => reference,
+          :valuta => valuta)
+
+        account.balance += posting.amount
+        account.postings_count += 1
+        account.last_valuta = account.last_valuta ? [account.last_valuta, posting.valuta].max : posting.valuta
+      
+        posting.save_without_validation
+        account.save_without_validation
+      end
   end
 end
