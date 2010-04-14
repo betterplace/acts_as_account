@@ -45,7 +45,7 @@ Then /^the global (\w+) account balance is (-?\d+) €$/ do |name, balance|
   assert_equal balance.to_i, Account.for(name).balance
 end
 
-When /^I transfer (-?\d+) € from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
+When /^I transfer (\d+) € from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
   from_account = User.find_by_name(from).account
   to_account = User.find_by_name(to).account
   Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
@@ -122,12 +122,4 @@ end
 Then /^(\w+) with (\w+) (\w+) references all postings$/ do |reference_class, name, value|
   reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
   assert_equal Posting.all, reference.postings 
-end
-
-Then /^the order of the postings is correct$/ do
-  # make sure we always book "Soll an Haben"
-  Posting.all.in_groups_of(2) do |from, to|
-    assert from.amount < 0
-    assert to.amount > 0
-  end
 end

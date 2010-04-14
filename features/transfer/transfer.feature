@@ -9,16 +9,7 @@ Feature: Transfer
     When I transfer 30 € from Thies's account to Norman's account
     Then Thies's account balance is -30 €
     And Norman's account balance is 30 €
-    And the order of the postings is correct
     
-  Scenario: I transfer a negative amount between accounts having holders
-    Given I create a user Thies
-    Given I create a user Norman
-    When I transfer -30 € from Thies's account to Norman's account
-    Then Thies's account balance is 30 €
-    And Norman's account balance is -30 €
-    And the order of the postings is correct
-
   Scenario: I transfer money between global accounts
     Given I create a global wirecard account
     Given I create a global anonymous_donation account

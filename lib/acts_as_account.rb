@@ -3,6 +3,7 @@ require 'action_controller'
 
 $: << File.expand_path(File.dirname(__FILE__))
 
+require 'acts_as_account/transfer'
 require 'acts_as_account/account'
 require 'acts_as_account/journal'
 require 'acts_as_account/posting'
