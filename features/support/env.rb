@@ -1,5 +1,5 @@
 require 'rubygems'
-gem 'mysql', '2.7.0'
+gem 'mysql'
 gem 'activerecord'
 gem 'actionpack'
 require 'active_record'

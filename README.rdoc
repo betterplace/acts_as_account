@@ -1,18 +1,14 @@
 = acts_as_account
 
-Description goes here.
-
-
-== Theory
-
 ActsAsAccount implements a "Double Entry Accounting" system for your 
 Rails-models.
 
-It hooks into ActiveRecord and allows to add accounts to any model by 
-simply means of adding "has_account" to your model. Because the accounts
+== Theory
+
+Acts as account hooks into ActiveRecord and allows to add accounts to any model by 
+simply adding "has_account" to your model. Because the accounts
 are connected via a has_many relation no migration to the account-hoder
 tables is needed.
-
 
 We also hook into the ActionController request cycle to warn the developer 
 if a Request has left the uncommitted changes in the system.
@@ -23,7 +19,6 @@ if a Request has left the uncommitted changes in the system.
 
 == Todo
 
-* ask axel to harden the schema
 * add transaction isolation tests
 
 == Copyright
