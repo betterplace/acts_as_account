@@ -1,7 +1,4 @@
-= acts_as_account
-
-ActsAsAccount implements a "Double Entry Accounting" system for your 
-Rails-models.
+acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.
 
 == Theory
 
@@ -21,6 +18,10 @@ if a Request has left the uncommitted changes in the system.
 
 * add transaction isolation tests
 
+== Credits
+
+This gem was written for the payment backend of betterplace.org by Thies C. Arntzen (http://github.com/thieso2) and Norman Timmler (http://github.com/unnu).
+
 == Copyright
 
-Copyright (c) 2010 betterplace
+Copyright (c) 2010 gut.org gAG
