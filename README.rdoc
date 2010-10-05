@@ -15,7 +15,7 @@ if a Request has left the uncommitted changes in the system.
 
 == Links
 
-* http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html
+* Double Entry Accounting in a Relational Database: http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html
 
 == Todo
 
