@@ -14,3 +14,4 @@ ActiveRecord::Base.class_eval do
 end
 
 require 'acts_as_account/global_account'
+require 'acts_as_account/manually_created_account'

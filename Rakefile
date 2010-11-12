@@ -10,6 +10,12 @@ begin
     gem.email = "thieso@gmail.com"
     gem.homepage = "http://github.com/betterplace/acts_as_account"
     gem.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
+    gem.add_dependency 'rubygems'
+    gem.add_dependency 'activerecord'
+    gem.add_dependency 'actionpack'
+    gem.add_dependency 'active_record'
+    gem.add_dependency 'database_cleaner'
+    gem.add_dependency 'action_controller'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

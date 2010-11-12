@@ -18,8 +18,13 @@ module ActsAsAccount
         end
       end
       
-      def has_postings
+      def is_reference
         has_many :postings, :class_name => "ActsAsAccount::Posting", :as => :reference
+        class_eval <<-EOS
+          def booked?
+            postings.any?
+          end
+        EOS
       end
 
       def has_global_account(name)

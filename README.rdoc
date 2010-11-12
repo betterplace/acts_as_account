@@ -1,16 +1,19 @@
-acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.
+= acts_as_account
 
 == Theory
 
-Acts as account hooks into ActiveRecord and allows to add accounts to any model by 
-simply adding "has_account" to your model. Because the accounts
+ActsAsAccount implements a "Double Entry Accounting" system for your 
+Rails-models.
+
+It hooks into ActiveRecord and allows to add accounts to any model by 
+simply means of adding "has_account" to your model. Because the accounts
 are connected via a has_many relation no migration to the account-hoder
 tables is needed.
 
 We also hook into the ActionController request cycle to warn the developer 
 if a Request has left the uncommitted changes in the system.
 
-If you would like to run the cucumber features from the acs_as_account gem, just execute
+If you'd like to run the cucumber features from the acs_as_account gem, just execute
 * rake features:create_database 
 * cucumber
 
@@ -18,14 +21,10 @@ If you would like to run the cucumber features from the acs_as_account gem, just
 
 * Double Entry Accounting in a Relational Database: http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html
 
-== Todo
-
-* add transaction isolation tests
-
 == Credits
 
-This gem was written for the payment backend of betterplace.org by Thies C. Arntzen (http://github.com/thieso2) and Norman Timmler (http://github.com/unnu).
+This gem was written for the payment backend of betterplace.org by Thies C. Arntzen (http://github.com/thieso2) and Norman Timmler (github.com/unnu).
 
 == Copyright
-
+ 
 Copyright (c) 2010 gut.org gAG
