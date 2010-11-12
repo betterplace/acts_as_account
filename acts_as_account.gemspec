@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "acts_as_account.gemspec",
      "cucumber.yml",
      "db/acts_as_account.sqlite3",
      "db/acts_as_bank.sqlite3",
@@ -41,7 +42,8 @@ Gem::Specification.new do |s|
      "lib/acts_as_account/global_account.rb",
      "lib/acts_as_account/journal.rb",
      "lib/acts_as_account/posting.rb",
-     "lib/acts_as_account/transfer.rb"
+     "lib/acts_as_account/transfer.rb",
+     "pkg/acts_as_account-1.0.0.gem"
   ]
   s.homepage = %q{http://github.com/betterplace/acts_as_account}
   s.rdoc_options = ["--charset=UTF-8"]
