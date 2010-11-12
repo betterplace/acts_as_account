@@ -8,7 +8,7 @@ begin
     gem.summary = %Q{acts_as_account implements double entry accounting for Rails models}
     gem.description = %Q{acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.}
     gem.email = "thieso@gmail.com"
-    gem.homepage = "http://github.com/thieso2/acts_as_account"
+    gem.homepage = "http://github.com/betterplace/acts_as_account"
     gem.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
   end
   Jeweler::GemcutterTasks.new
