@@ -7,13 +7,15 @@ Rails-models.
 
 It hooks into ActiveRecord and allows to add accounts to any model by 
 simply means of adding "has_account" to your model. Because the accounts
-are connected via a has_many relation no migration to the account-hoder
+are connected via a has_many relation no migration to the account-holder
 tables is needed.
 
 We also hook into the ActionController request cycle to warn the developer 
-if a Request has left the uncommitted changes in the system.
+if a request has left the uncommitted changes in the system.
 
-If you'd like to run the cucumber features from the acs_as_account gem, just execute
+== How to test
+
+Run the cucumber features from the acs_as_account gem, just execute
 * rake features:create_database 
 * cucumber
 
