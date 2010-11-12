@@ -15,7 +15,6 @@ begin
     gem.add_dependency 'actionpack'
     gem.add_dependency 'active_record'
     gem.add_dependency 'database_cleaner'
-    gem.add_dependency 'action_controller'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
