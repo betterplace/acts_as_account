@@ -13,7 +13,6 @@ begin
     gem.add_dependency 'rubygems'
     gem.add_dependency 'activerecord'
     gem.add_dependency 'actionpack'
-    gem.add_dependency 'active_record'
     gem.add_dependency 'database_cleaner'
   end
   Jeweler::GemcutterTasks.new
