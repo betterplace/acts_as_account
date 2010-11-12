@@ -5,10 +5,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "acts_as_account"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{acts_as_account implements double entry accounting for Rails models}
+    gem.description = %Q{acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.}
     gem.email = "thieso@gmail.com"
-    gem.homepage = "http://github.com/thieso2/acts_as_account"
+    gem.homepage = "http://github.com/betterplace/acts_as_account"
     gem.authors = ["Thies C. Arntzen, Norman Timmler"]
     gem.add_development_dependency "shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
