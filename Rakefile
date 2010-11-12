@@ -8,56 +8,24 @@ begin
     gem.summary = %Q{acts_as_account implements double entry accounting for Rails models}
     gem.description = %Q{acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.}
     gem.email = "thieso@gmail.com"
-    gem.homepage = "http://github.com/betterplace/acts_as_account"
-    gem.authors = ["Thies C. Arntzen, Norman Timmler"]
-    gem.add_development_dependency "shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.homepage = "http://github.com/thieso2/acts_as_account"
+    gem.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
-
-begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
-    test.libs << 'test'
-    test.pattern = 'test/**/test_*.rb'
-    test.verbose = true
-  end
-rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
-end
-
-task :test => :check_dependencies
-
-task :default => :test
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "acts_as_account #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
-
-namespace :test do
+namespace :features do
   desc "create test database out of db/schema.rb"
   task :create_database do
     require 'rubygems'
     require 'active_record'
-    ActiveRecord::Base.establish_connection(YAML.load_file(File.dirname(__FILE__) + '/db/database.yml')['acts_as_account'])
+    access_data = YAML.load_file(File.dirname(__FILE__) + '/db/database.yml')['acts_as_account']
+    conn = ActiveRecord::Base.establish_connection(Hash[access_data.select { |k, v| k != 'database'}]).connection
+    conn.execute('DROP DATABASE IF EXISTS acts_as_account')
+    conn.execute('CREATE DATABASE acts_as_account')
+    conn.execute('USE acts_as_account')
     load(File.dirname(__FILE__) + '/db/schema.rb')
   end  
 end

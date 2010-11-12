@@ -9,5 +9,3 @@ Feature: Creating an Account
     Given User A has an Account named default
     And I create an Account named default for User A
     Then I get the original account
-
-

@@ -1,4 +1,5 @@
 require 'rubygems'
+
 gem 'mysql'
 gem 'activerecord'
 gem 'actionpack'

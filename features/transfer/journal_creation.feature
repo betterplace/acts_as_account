@@ -10,5 +10,4 @@ Feature: Creating a journal
 
   Scenario: Creating a Journal via current
     When I create a Journal via current
-    Then I have a Journal 
-    
+    Then I have a Journal

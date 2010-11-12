@@ -10,6 +10,10 @@ tables is needed.
 We also hook into the ActionController request cycle to warn the developer 
 if a Request has left the uncommitted changes in the system.
 
+If you would like to run the cucumber features from the acs_as_account gem, just execute
+* rake features:create_database 
+* cucumber
+
 == Links
 
 * Double Entry Accounting in a Relational Database: http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html
