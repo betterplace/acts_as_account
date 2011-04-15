@@ -43,7 +43,8 @@ module ActsAsAccount
       end
     end
     
-    private 
+    private
+    
       def add_posting(amount, account, other_account, reference, valuta)
         posting = postings.build(
           :amount => amount, 
@@ -52,15 +53,9 @@ module ActsAsAccount
           :reference => reference,
           :valuta => valuta)
 
-        account.balance += posting.amount
+        account.reload.balance += posting.amount
         account.postings_count += 1
 
-        # The last valuta will be the most recent date btw this posting valuta (payment.created_at)
-        # and the last valuta.
-        # TODO 2010-05-20 jm: Ask Holger how the last valuta could be more recent than the payment ???
-
-
-        # TODO 2010-05-20 jm: Ask Holger with saving *without* validations ???
         posting.save_without_validation
         account.save_without_validation
       end
