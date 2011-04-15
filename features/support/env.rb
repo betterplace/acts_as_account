@@ -1,9 +1,3 @@
-require 'rubygems'
-gem 'mysql'
-gem 'activerecord'
-gem 'actionpack'
-require 'active_record'
-
 require 'test/unit/assertions'
 
 World(Test::Unit::Assertions)
