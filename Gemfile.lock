@@ -1,0 +1,52 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    actionpack (2.3.11)
+      activesupport (= 2.3.11)
+      rack (~> 1.1.0)
+    activerecord (2.3.11)
+      activesupport (= 2.3.11)
+    activesupport (2.3.11)
+    builder (2.1.2)
+    cucumber (0.9.4)
+      builder (~> 2.1.2)
+      diff-lcs (~> 1.1.2)
+      gherkin (~> 2.2.9)
+      json (~> 1.4.6)
+      term-ansicolor (~> 1.0.5)
+    database_cleaner (0.6.6)
+    diff-lcs (1.1.2)
+    gherkin (2.2.9)
+      json (~> 1.4.6)
+      term-ansicolor (~> 1.0.5)
+    git (1.2.5)
+    jeweler (1.5.2)
+      bundler (~> 1.0.0)
+      git (>= 1.2.5)
+      rake
+    json (1.4.6)
+    mysql (2.8.1)
+    rack (1.1.2)
+    rake (0.8.7)
+    rspec (2.3.0)
+      rspec-core (~> 2.3.0)
+      rspec-expectations (~> 2.3.0)
+      rspec-mocks (~> 2.3.0)
+    rspec-core (2.3.1)
+    rspec-expectations (2.3.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.3.0)
+    term-ansicolor (1.0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  actionpack (~> 2.3.5)
+  activerecord (~> 2.3.5)
+  bundler (~> 1.0.0)
+  cucumber (~> 0.9.4)
+  database_cleaner
+  jeweler (~> 1.5.2)
+  mysql (>= 2.7.0)
+  rspec (~> 2.3.0)

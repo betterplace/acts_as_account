@@ -20,7 +20,7 @@ module ActsAsAccount
     end
     
     def transfers
-      returning([]) do |transfers|
+      [].tap do |transfers|
         postings.in_groups_of(2) { |postings| transfers << Transfer.new(*postings) }
       end
     end
