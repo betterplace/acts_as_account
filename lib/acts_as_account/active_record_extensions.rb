@@ -4,20 +4,20 @@ module ActsAsAccount
       base.extend ClassMethods
       base.class_eval do
         def account(name = :default)
-          __send__("#{name}_account") || __send__("create_#{name}_account", :name => name.to_s) 
+          __send__("#{name}_account") || __send__("create_#{name}_account", :name => name.to_s, :holder_id => self.id, :holder_type => self.class.to_s)
         end
       end
     end
-  
+
     module ClassMethods
-      
+
       def has_account(name = :default)
         has_one "#{name}_account", :conditions => "name = '#{name}'", :class_name => "ActsAsAccount::Account", :as => :holder
         unless instance_methods.include?('accounts')
           has_many :accounts, :class_name => "ActsAsAccount::Account", :as => :holder
         end
       end
-      
+
       def is_reference
         has_many :postings, :class_name => "ActsAsAccount::Posting", :as => :reference
         class_eval <<-EOS

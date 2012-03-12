@@ -2,9 +2,8 @@ require 'test/unit/assertions'
 
 World(Test::Unit::Assertions)
 
-ActiveRecord::Base.establish_connection(YAML.load_file(File.dirname(__FILE__) + '/../../db/database.yml')['acts_as_account'])
-
 require File.dirname(__FILE__) + '/../../lib/acts_as_account'
+ActiveRecord::Base.establish_connection(YAML.load_file(File.dirname(__FILE__) + '/../../db/database.yml')['acts_as_account'])
 
 #ActiveRecord::Base.logger = Logger.new(STDOUT)
 

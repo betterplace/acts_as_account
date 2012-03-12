@@ -9,7 +9,6 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 require 'rake'
-require 
 
 begin
   require 'jeweler'
@@ -40,9 +39,5 @@ namespace :features do
     conn.execute('CREATE DATABASE acts_as_account')
     conn.execute('USE acts_as_account')
     load(File.dirname(__FILE__) + '/db/schema.rb')
-  end
-  
-  Cucumber::Rake::Task.new(:run) do |t|
-    t.cucumber_opts = "features --format pretty"
   end
 end

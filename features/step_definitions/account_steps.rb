@@ -19,13 +19,13 @@ end
 
 Then /^the account has (\d+) journals?$/ do |num_journals|
   num_journals = num_journals.to_i
-  
+
   if num_journals == 1
     @journal = @account.journals.first
   else
     @journals = @account.journals
   end
-    
+
   assert_equal num_journals, @account.journals.count
 end
 
@@ -56,7 +56,7 @@ When /^I transfer (\d+) € from global (\w+) account to global (\w+) account$/ 
   to_account = Account.for(to)
   Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
 end
- 
+
 Then /^the balance\-sheet should be:$/ do |table|
   table.hashes.each do |row|
     assert_equal row['Balance'].to_i, User.find_by_name(row['User']).account.balance
@@ -103,7 +103,7 @@ end
 Then /^all postings reference (\w+) with (\w+) (\w+)$/ do |reference_class, name, value|
   reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
   Posting.all.each do |posting|
-    assert_equal reference, posting.reference 
+    assert_equal reference, posting.reference
   end
 end
 
@@ -121,7 +121,7 @@ end
 
 Then /^(\w+) with (\w+) (\w+) references all postings$/ do |reference_class, name, value|
   reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
-  assert_equal Posting.all, reference.postings 
+  assert_equal Posting.all, reference.postings
 end
 
 Then /^the order of the postings is correct$/ do
@@ -130,4 +130,19 @@ Then /^the order of the postings is correct$/ do
     assert from.amount < 0
     assert to.amount > 0
   end
+end
+
+Given /^I have the same user in memory$/ do
+  @user1 = User.first
+  @user2 = User.find(@user1.id)
+end
+
+Given /^I disable the account existence check on those$/ do
+  [@user1, @user2].each do |user|
+    user.instance_eval "def default_account ; end"
+  end
+end
+
+When /^I call 'account' on both it should be possible$/ do
+  [@user1, @user2].each { |user| user.account }
 end
