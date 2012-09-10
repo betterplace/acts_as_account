@@ -3,7 +3,7 @@ module ActsAsAccount
     self.table_name = :acts_as_account_accounts
 
     belongs_to :holder, :polymorphic => true
-    has_many :postings
+    has_many :postings, :class_name => 'ActsAsAccount::Posting'
     has_many :journals, :through => :postings
 
     # TODO: discuss with norman:

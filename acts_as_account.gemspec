@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
+    ".rvmrc",
     ".specification",
     "Gemfile",
     "Gemfile.lock",
@@ -24,6 +25,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "acts_as_account.gemspec",
     "cucumber.yml",
     "db/database.yml",
     "db/schema.rb",
