@@ -1,6 +1,6 @@
 module ActsAsAccount
   class Account < ActiveRecord::Base
-    set_table_name :acts_as_account_accounts
+    self.table_name = :acts_as_account_accounts
 
     belongs_to :holder, :polymorphic => true
     has_many :postings
@@ -75,10 +75,11 @@ module ActsAsAccount
         record = if attributes[:holder]
           attributes[:holder].account(attributes[:name])
         else
-          find(:first, :conditions => [
-            "holder_type = ? and holder_id = ? and name = ?",
-            attributes[:holder_type], attributes[:holder_id], attributes[:name]
-          ])
+          where(
+            :holder_type => attributes[:holder_type],
+            :holder_id   => attributes[:holder_id],
+            :name        => attributes[:name]
+          ).first
         end
         record || raise("Cannot find or create account with attributes #{attributes.inspect}")
       end

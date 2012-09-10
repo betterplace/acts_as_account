@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 include ActsAsAccount
 
 def german_date_time_to_local(datestring, timestring)
@@ -97,7 +99,7 @@ end
 
 Given /I transfer (\d+) € from (\w+)'s account to (\w+)'s account referencing a (\w+) with (\w+) (\w+)$/ do |amount, from, to, reference, name, value|
   @reference = reference.constantize.create!(name => value)
-  Given "I transfer #{amount} € from #{from}'s account to #{to}'s account"
+  step "I transfer #{amount} € from #{from}'s account to #{to}'s account"
 end
 
 Then /^all postings reference (\w+) with (\w+) (\w+)$/ do |reference_class, name, value|
@@ -109,7 +111,7 @@ end
 
 Given /^I transfer (\d+) € from (\w+)'s account to (\w+)'s account and specify (\S+) (\S+) as the booking time$/ do |amount, from, to, booking_date, booking_time|
   @valuta = german_date_time_to_local(booking_date, booking_time)
-  Given "I transfer #{amount} € from #{from}'s account to #{to}'s account"
+  step "I transfer #{amount} € from #{from}'s account to #{to}'s account"
 end
 
 Then /^all postings have (\S+) (\S+) as the booking time$/ do |booking_date, booking_time|
@@ -139,7 +141,7 @@ end
 
 Given /^I disable the account existence check on those$/ do
   [@user1, @user2].each do |user|
-    user.instance_eval "def default_account ; end"
+    user.instance_eval "def default_account; true; end"
   end
 end
 
