@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "acts_as_account"
-  s.version = "2.0.0"
+  s.version = "2.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
-  s.date = "2012-09-10"
+  s.date = "2012-10-04"
   s.description = "acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples."
   s.email = "thieso@gmail.com"
   s.extra_rdoc_files = [
@@ -31,8 +31,10 @@ Gem::Specification.new do |s|
     "db/schema.rb",
     "features/account/account_creation.feature",
     "features/step_definitions/account_steps.rb",
+    "features/support/abstract_user.rb",
     "features/support/cheque.rb",
     "features/support/env.rb",
+    "features/support/inheriting_user.rb",
     "features/support/user.rb",
     "features/transfer/journal_creation.feature",
     "features/transfer/transfer.feature",
