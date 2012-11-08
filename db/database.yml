@@ -1,5 +1,5 @@
 acts_as_account:
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: acts_as_account
   username: root

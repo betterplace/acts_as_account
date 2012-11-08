@@ -4,11 +4,10 @@ group :development do
   gem 'rspec'
   gem 'jeweler'
   gem 'cucumber'
-  gem 'mysql'
+  gem 'mysql2'
 end
 
 group :default do
-  gem 'activerecord', '~> 3.2.8'
-  gem 'actionpack'  , '~> 3.2.8'
+  gem 'rails', '~> 3.2.8'
   gem 'database_cleaner'
 end
