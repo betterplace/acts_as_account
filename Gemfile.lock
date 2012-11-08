@@ -110,5 +110,5 @@ DEPENDENCIES
   database_cleaner
   jeweler
   mysql2
-  rails (> 3)
+  rails (~> 3.2.8)
   rspec
