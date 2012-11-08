@@ -9,13 +9,13 @@ class CreateActsAsAccountPostings < ActiveRecord::Migration
       t.integer "reference_id"
       t.string "reference_type"
 
-      t.datetime "valuta"
+      t.datetime "value"
 
       t.timestamps
     end
     add_index "acts_as_account_postings", "account_id"
     add_index "acts_as_account_postings", "journal_id"
     add_index "acts_as_account_postings", ["reference_type", "reference_id"], :name => "reference"
-    add_index "acts_as_account_postings", ["valuta", "id"], :name => "sort_key"
+    add_index "acts_as_account_postings", ["value", "id"], :name => "sort_key"
   end
 end

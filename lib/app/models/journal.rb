@@ -24,33 +24,33 @@ class Journal < ActiveRecord::Base
     end
   end
 
-  def transfer(amount, from_account, to_account, reference = nil, valuta = Time.now)
+  def transfer(amount, from_account, to_account, reference = nil, value = Time.now)
     transaction do
       if (amount < 0)
         # change order if amount is negative
         amount, from_account, to_account = -amount, to_account, from_account
       end
 
-      logger.debug { "Journal.transfer amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) valuta:#{valuta}" } if logger
+      logger.debug { "Journal.transfer amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) value:#{value}" } if logger
 
       # to avoid possible deadlocks we need to ensure that the locking order is always
       # the same therfore the sort by id.
       [from_account, to_account].sort_by(&:id).map(&:lock!)
 
-      add_posting(-amount,  from_account,   to_account, reference, valuta)
-      add_posting( amount,    to_account, from_account, reference, valuta)
+      add_posting(-amount,  from_account,   to_account, reference, value)
+      add_posting( amount,    to_account, from_account, reference, value)
     end
   end
 
   private
 
-    def add_posting(amount, account, other_account, reference, valuta)
+    def add_posting(amount, account, other_account, reference, value)
       posting = postings.build(
         :amount => amount,
         :account => account,
         :other_account => other_account,
         :reference => reference,
-        :valuta => valuta)
+        :value => value)
 
       account.class.update_counters account.id, :postings_count => 1, :balance => posting.amount
 

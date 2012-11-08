@@ -7,7 +7,7 @@ class CreateActsAsAccountAccounts < ActiveRecord::Migration
 
       t.integer  "balance", :default => 0
       t.integer  "postings_count", :default => 0
-      t.datetime  "last_valuta"
+      t.datetime  "last_value"
 
       t.timestamps
     end

@@ -14,13 +14,13 @@ class Account < ActiveRecord::Base
   class << self
 
     def recalculate_all_balances
-      Account.update_all(:balance => 0, :postings_count => 0, :last_valuta => nil)
+      Account.update_all(:balance => 0, :postings_count => 0, :last_value => nil)
       sql = <<-EOT
       SELECT
         account_id as id,
         count(*) as calculated_postings_count,
         sum(amount) as calculated_balance,
-        max(valuta) as calculated_valuta
+        max(value) as calculated_value
       FROM
         acts_as_account_postings
       GROUP BY
@@ -34,9 +34,9 @@ class Account < ActiveRecord::Base
         account.update_attributes(
           :balance => account.calculated_balance,
           :postings_count => account.calculated_postings_count,
-          :last_valuta => account.calculated_valuta)
+          :last_value => account.calculated_value)
 
-        puts "account:#{account.id}, balance:#{account.balance}, postings_count:#{account.postings_count}, last_valuta:#{account.last_valuta}"
+        puts "account:#{account.id}, balance:#{account.balance}, postings_count:#{account.postings_count}, last_value:#{account.last_value}"
       end
     end
 

@@ -64,13 +64,13 @@ end
 When /^I transfer (-?\d+) € from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
   from_account = User.find_by_name(from).account
   to_account = User.find_by_name(to).account
-  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
+  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @value)
 end
 
 When /^I transfer (\d+) € from global (\w+) account to global (\w+) account$/ do |amount, from, to|
   from_account = Account.for(from)
   to_account = Account.for(to)
-  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
+  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @value)
 end
 
 Then /^the balance\-sheet should be:$/ do |table|
@@ -124,14 +124,14 @@ Then /^all postings reference (\w+) with (\w+) (\w+)$/ do |reference_class, name
 end
 
 Given /^I transfer (\d+) € from (\w+)'s account to (\w+)'s account and specify (\S+) (\S+) as the booking time$/ do |amount, from, to, booking_date, booking_time|
-  @valuta = german_date_time_to_local(booking_date, booking_time)
+  @value = german_date_time_to_local(booking_date, booking_time)
   step "I transfer #{amount} € from #{from}'s account to #{to}'s account"
 end
 
 Then /^all postings have (\S+) (\S+) as the booking time$/ do |booking_date, booking_time|
-  valuta = german_date_time_to_local(booking_date, booking_time)
+  value = german_date_time_to_local(booking_date, booking_time)
   Posting.all.each do |posting|
-    assert_equal valuta, posting.valuta
+    assert_equal value, posting.value
   end
 end
 
@@ -141,7 +141,7 @@ Then /^(\w+) with (\w+) (\w+) references all postings$/ do |reference_class, nam
 end
 
 Then /^the order of the postings is correct$/ do
-  # make sure we always book "Soll an Haben"
+  # make sure we always book "debit an credit"
   Posting.all.in_groups_of(2) do |from, to|
     assert from.amount < 0
     assert to.amount > 0
