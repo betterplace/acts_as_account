@@ -8,6 +8,6 @@ group :development do
 end
 
 group :default do
-  gem 'rails', '~> 3.2.8'
+  gem 'rails', '~> 3.2.9'
   gem 'database_cleaner'
 end

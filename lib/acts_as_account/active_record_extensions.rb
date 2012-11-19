@@ -6,7 +6,7 @@ module ActsAsAccount
 
     included do
       def account(name = :default)
-        __send__("#{name}_account") || __send__("create_#{name}_account", :name => name.to_s)
+        __send__("#{name}_account") || __send__("create_#{name}_account") {|account| account.name = name.to_s}
       end
     end
 

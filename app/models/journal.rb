@@ -45,12 +45,13 @@ class Journal < ActiveRecord::Base
   private
 
     def add_posting(amount, account, other_account, reference, value)
-      posting = postings.build(
-        :amount => amount,
-        :account => account,
-        :other_account => other_account,
-        :reference => reference,
-        :value => value)
+      posting = postings.build do |p|
+        p.amount = amount
+        p.account = account
+        p.other_account = other_account
+        p.reference = reference
+        p.value = value
+      end
 
       account.class.update_counters account.id, :postings_count => 1, :balance => posting.amount
 
