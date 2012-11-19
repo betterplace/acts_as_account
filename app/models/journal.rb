@@ -34,7 +34,7 @@ class Journal < ActiveRecord::Base
       logger.debug { "Journal.transfer amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) value:#{value}" } if logger
 
       # to avoid possible deadlocks we need to ensure that the locking order is always
-      # the same therfore the sort by id.
+      # the same therefore the sort by id.
       [from_account, to_account].sort_by(&:id).map(&:lock!)
 
       add_posting(-amount,  from_account,   to_account, reference, value)

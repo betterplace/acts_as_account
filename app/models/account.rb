@@ -4,6 +4,7 @@ class Account < ActiveRecord::Base
   belongs_to :holder, :polymorphic => true
   has_many :postings, :class_name => 'Posting'
   has_many :journals, :through => :postings
+  attr_accessible :name
 
   # TODO: discuss with norman:
   # validates_presence_of will force an ActiveRecord::find on the object
