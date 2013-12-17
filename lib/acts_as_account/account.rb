@@ -42,7 +42,7 @@ module ActsAsAccount
       end
 
       def for(name)
-        GlobalAccount.find_or_create_by_name(name.to_s).account
+        GlobalAccount.find_or_create_by(name: name).account
       end
 
       def create!(attributes = nil)

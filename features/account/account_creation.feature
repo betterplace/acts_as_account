@@ -10,6 +10,12 @@ Feature: Creating an Account
     And I create an Account named default for User A
     Then I get the original account
 
+  Scenario: Creating a Account with a different name
+    And I create an Account named default for User A
+    And I create an Account named not_default for User A
+    Then I can get the default Account of User A
+    Then I can get the not_default Account of User A
+
   Scenario: Race condition while creating account
     Given I have the same user in memory
     And I disable the account existence check on those

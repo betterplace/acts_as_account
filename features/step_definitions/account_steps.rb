@@ -97,13 +97,18 @@ Then /^I get the original account$/ do
   assert_equal @account, @created_account
 end
 
+Then(/^I can get the (\w+) Account of User (\w+)$/) do |account_name, user_name|
+  account = User.find_by_name(user_name).__send__(:"#{account_name}_account")
+  assert_kind_of ActsAsAccount::Account, account
+end
+
 Given /I transfer (\d+) € from (\w+)'s account to (\w+)'s account referencing a (\w+) with (\w+) (\w+)$/ do |amount, from, to, reference, name, value|
   @reference = reference.constantize.create!(name => value)
   step "I transfer #{amount} € from #{from}'s account to #{to}'s account"
 end
 
 Then /^all postings reference (\w+) with (\w+) (\w+)$/ do |reference_class, name, value|
-  reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
+  reference = reference_class.constantize.where("#{name} = #{value}").first
   Posting.all.each do |posting|
     assert_equal reference, posting.reference
   end
@@ -122,8 +127,8 @@ Then /^all postings have (\S+) (\S+) as the booking time$/ do |booking_date, boo
 end
 
 Then /^(\w+) with (\w+) (\w+) references all postings$/ do |reference_class, name, value|
-  reference = reference_class.constantize.find(:first, :conditions => "#{name} = #{value}")
-  assert_equal Posting.all, reference.postings
+  reference = reference_class.constantize.where("#{name} = #{value}").first
+  assert_equal Posting.all.to_a, reference.postings
 end
 
 Then /^the order of the postings is correct$/ do

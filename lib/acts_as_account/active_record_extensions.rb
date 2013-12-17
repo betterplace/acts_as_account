@@ -12,14 +12,15 @@ module ActsAsAccount
     module ClassMethods
 
       def has_account(name = :default)
-        has_one "#{name}_account", :conditions => "name = '#{name}'", :class_name => "ActsAsAccount::Account", :as => :holder
+        has_one :"#{name}_account", -> { where name: name }, class_name: "ActsAsAccount::Account", as: :holder
+
         unless instance_methods.include?('accounts')
-          has_many :accounts, :class_name => "ActsAsAccount::Account", :as => :holder
+          has_many :accounts, class_name: "ActsAsAccount::Account", as: :holder
         end
       end
 
       def is_reference
-        has_many :postings, :class_name => "ActsAsAccount::Posting", :as => :reference
+        has_many :postings, class_name: "ActsAsAccount::Posting", as: :reference
         class_eval <<-EOS
           def booked?
             postings.any?

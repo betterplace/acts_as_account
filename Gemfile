@@ -8,7 +8,7 @@ group :development do
 end
 
 group :default do
-  gem 'activerecord', '~> 3.2.8'
-  gem 'actionpack'  , '~> 3.2.8'
+  gem 'activerecord', '~> 4.0.0'
+  gem 'actionpack'  , '~> 4.0.0'
   gem 'database_cleaner'
 end
