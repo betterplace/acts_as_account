@@ -4,7 +4,7 @@ module ActsAsAccount
       base.extend ClassMethods
       base.class_eval do
         def account(name = :default)
-          __send__("#{name}_account") || __send__("create_#{name}_account", :name => name.to_s, :holder_id => self.id, :holder_type => self.class.to_s)
+          __send__("#{name}_account") || __send__("create_#{name}_account", :name => name.to_s)
         end
       end
     end

@@ -56,7 +56,13 @@ ActiveRecord::Schema.define(:version => 1) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  
+
+  create_table "abstract_users", :force => true do |t|
+    t.string   "name", :null => false
+    t.string   "type", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
   create_table "cheques", :force => true do |t|
     t.string "number"
     t.datetime "created_at"

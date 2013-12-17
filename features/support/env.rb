@@ -14,6 +14,8 @@ DatabaseCleaner.strategy = :transaction
 Dir[File.dirname(__FILE__) + '/../step_definitions/*.rb'].each { |file| require file }
 
 require File.dirname(__FILE__) + '/user'
+require File.dirname(__FILE__) + '/abstract_user'
+require File.dirname(__FILE__) + '/inheriting_user'
 require File.dirname(__FILE__) + '/cheque'
 
 After do

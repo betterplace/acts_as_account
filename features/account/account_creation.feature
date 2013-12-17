@@ -20,3 +20,8 @@ Feature: Creating an Account
     Given I have the same user in memory
     And I disable the account existence check on those
     When I call 'account' on both it should be possible
+
+ Scenario: Accounts on a subclass
+    Given I have a user A that inherits from an abstract class
+    And I autocreate an account for inheriting user A
+    Then the account of user A should be there

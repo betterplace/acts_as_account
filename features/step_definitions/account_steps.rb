@@ -10,6 +10,20 @@ Given /^I create a user (\w+)$/ do |name|
   User.create!(:name => name)
 end
 
+Given /^I have a user (\w+) that inherits from an abstract class$/ do |name|
+  InheritingUser.create!(:name => name)
+end
+
+Given /^I autocreate an account for inheriting user (\w+)$/ do |name|
+  @created_account = InheritingUser.find_by_name(name).account
+  assert_not_nil @created_account
+end
+
+Then /^the account of user (\w+) should be there$/ do |name|
+  account = InheritingUser.find_by_name(name).account
+  assert_equal @created_account, account
+end
+
 Given /^I create a global ([_\w]+) account$/ do |name|
   Account.for(name)
 end
