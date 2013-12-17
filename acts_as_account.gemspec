@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
+    ".ruby-gemset",
+    ".ruby-version",
     ".specification",
     "Gemfile",
     "Gemfile.lock",
