@@ -13,6 +13,10 @@ tables is needed.
 We also hook into the ActionController request cycle to warn the developer
 if a request has left the uncommitted changes in the system.
 
+== Support
+
+Rails 4 is supported since version 3.1.0
+
 == How to test
 
 Run the cucumber features from the acs_as_account gem, just execute

@@ -13,15 +13,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "acts_as_account"
-    gem.summary = %Q{acts_as_account implements double entry accounting for Rails models}
+    gem.name        = "acts_as_account"
+    gem.summary     = %Q{acts_as_account implements double entry accounting for Rails models}
     gem.description = %Q{acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.}
-    gem.email = "thieso@gmail.com"
-    gem.homepage = "http://github.com/betterplace/acts_as_account"
-    gem.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
-    gem.add_dependency 'activerecord'
-    gem.add_dependency 'actionpack'
-    gem.add_dependency 'database_cleaner'
+    gem.email       = "developers@betterplace.org"
+    gem.homepage    = "http://github.com/betterplace/acts_as_account"
+    gem.authors     = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
