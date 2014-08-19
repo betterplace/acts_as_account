@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
   s.date = "2014-08-19"
   s.description = "acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples."
-  s.email = "thieso@gmail.com"
+  s.email = "developers@betterplace.org"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
     ".ruby-gemset",
     ".ruby-version",
     ".specification",
+    "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE",
@@ -66,9 +67,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<mysql>, [">= 0"])
-      s.add_runtime_dependency(%q<activerecord>, [">= 0"])
-      s.add_runtime_dependency(%q<actionpack>, [">= 0"])
-      s.add_runtime_dependency(%q<database_cleaner>, [">= 0"])
     else
       s.add_dependency(%q<activerecord>, ["~> 4.1.0"])
       s.add_dependency(%q<actionpack>, ["~> 4.1.0"])
@@ -77,9 +75,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<mysql>, [">= 0"])
-      s.add_dependency(%q<activerecord>, [">= 0"])
-      s.add_dependency(%q<actionpack>, [">= 0"])
-      s.add_dependency(%q<database_cleaner>, [">= 0"])
     end
   else
     s.add_dependency(%q<activerecord>, ["~> 4.1.0"])
@@ -89,9 +84,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<mysql>, [">= 0"])
-    s.add_dependency(%q<activerecord>, [">= 0"])
-    s.add_dependency(%q<actionpack>, [">= 0"])
-    s.add_dependency(%q<database_cleaner>, [">= 0"])
   end
 end
 
