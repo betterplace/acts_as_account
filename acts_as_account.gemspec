@@ -9,8 +9,9 @@ Gem::Specification.new do |s|
   s.version = "3.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.require_paths = ["lib"]
   s.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
-  s.date = "2014-04-25"
+  s.date = "2014-08-19"
   s.description = "acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples."
   s.email = "thieso@gmail.com"
   s.extra_rdoc_files = [
@@ -51,8 +52,7 @@ Gem::Specification.new do |s|
     "lib/acts_as_account/transfer.rb"
   ]
   s.homepage = "http://github.com/betterplace/acts_as_account"
-  s.require_paths = ["lib"]
-  s.rubygems_version = "2.1.11"
+  s.rubygems_version = "2.2.2"
   s.summary = "acts_as_account implements double entry accounting for Rails models"
 
   if s.respond_to? :specification_version then
