@@ -19,25 +19,37 @@ begin
     gem.email = "thieso@gmail.com"
     gem.homepage = "http://github.com/betterplace/acts_as_account"
     gem.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
-    gem.add_dependency 'activerecord'
-    gem.add_dependency 'actionpack'
-    gem.add_dependency 'database_cleaner'
+    gem.license = 'Apache-2.0'
+    #gem.add_dependency 'activerecord'
+    #gem.add_dependency 'actionpack'
+    #gem.add_dependency 'database_cleaner'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
+def connect_database
+  require 'rubygems'
+  require 'active_record'
+  access_data = YAML.load_file(File.dirname(__FILE__) + '/db/database.yml')['acts_as_account']
+  ActiveRecord::Base.establish_connection(Hash[access_data.select { |k, v| k != 'database'}]).connection
+end
+
 namespace :features do
   desc "create test database out of db/schema.rb"
   task :create_database do
-    require 'rubygems'
-    require 'active_record'
-    access_data = YAML.load_file(File.dirname(__FILE__) + '/db/database.yml')['acts_as_account']
-    conn = ActiveRecord::Base.establish_connection(Hash[access_data.select { |k, v| k != 'database'}]).connection
+    conn = connect_database
     conn.execute('DROP DATABASE IF EXISTS acts_as_account')
     conn.execute('CREATE DATABASE acts_as_account')
     conn.execute('USE acts_as_account')
     load(File.dirname(__FILE__) + '/db/schema.rb')
   end
 end
+
+desc "Run features"
+task :features => :'features:create_database' do
+  ruby '-S', 'cucumber'
+end
+
+task :default => :features

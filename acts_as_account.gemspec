@@ -64,7 +64,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<mysql>, [">= 0"])
-      s.add_runtime_dependency(%q<activerecord>, [">= 0"])
       s.add_runtime_dependency(%q<actionpack>, [">= 0"])
       s.add_runtime_dependency(%q<database_cleaner>, [">= 0"])
     else
@@ -75,7 +74,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<mysql>, [">= 0"])
-      s.add_dependency(%q<activerecord>, [">= 0"])
       s.add_dependency(%q<actionpack>, [">= 0"])
       s.add_dependency(%q<database_cleaner>, [">= 0"])
     end
@@ -87,7 +85,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<mysql>, [">= 0"])
-    s.add_dependency(%q<activerecord>, [">= 0"])
     s.add_dependency(%q<actionpack>, [">= 0"])
     s.add_dependency(%q<database_cleaner>, [">= 0"])
   end
