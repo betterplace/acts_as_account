@@ -1,3 +1,5 @@
+require 'time'
+
 module ActsAsAccount
   class Posting < ActiveRecord::Base
     self.table_name = :acts_as_account_postings
@@ -11,5 +13,13 @@ module ActsAsAccount
     scope :haben,      -> { where('amount < 0') }
     scope :start_date, -> date { where ['DATE(valuta) >= ?', date] }
     scope :end_date,   -> date { where ['DATE(valuta) <= ?', date] }
+    scope :start_date, -> date {
+      date = Time.parse(date.to_s).utc.to_s(:db)
+      { :conditions => [ 'valuta >= ?', date ] }
+    }
+    scope :end_date,   -> date {
+      date = Time.parse(date.to_s).utc.to_s(:db)
+      { :conditions => [ 'valuta <= ?', date ] }
+    }
   end
 end
