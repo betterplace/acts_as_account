@@ -11,15 +11,13 @@ module ActsAsAccount
 
     scope :soll,       -> { where('amount >= 0') }
     scope :haben,      -> { where('amount < 0') }
-    scope :start_date, -> date { where ['DATE(valuta) >= ?', date] }
-    scope :end_date,   -> date { where ['DATE(valuta) <= ?', date] }
     scope :start_date, -> date {
       date = Time.parse(date.to_s).utc.to_s(:db)
-      { :conditions => [ 'valuta >= ?', date ] }
+      where(['valuta >= ?', date])
     }
     scope :end_date,   -> date {
       date = Time.parse(date.to_s).utc.to_s(:db)
-      { :conditions => [ 'valuta <= ?', date ] }
+      where(['valuta <= ?', date])
     }
   end
 end
