@@ -1,5 +1,7 @@
 = acts_as_account
 
+{<img src="https://travis-ci.org/betterplace/acts_as_account.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/betterplace/acts_as_account]
+
 == Theory
 
 ActsAsAccount implements a "Double Entry Accounting" system for your
