@@ -29,9 +29,10 @@ ActiveRecord::Schema.define(:version => 1) do
     t.integer "other_account_id", :null => false
     t.integer "journal_id", :null => false
     t.integer "amount", :null => false
-    
+
     t.integer "reference_id"
     t.string "reference_type"
+    t.string "description"
 
     t.datetime "valuta"
 
