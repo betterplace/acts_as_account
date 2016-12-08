@@ -30,8 +30,9 @@ def connect_database
   require 'active_record'
   require 'complex_config'
   config = ComplexConfig::Provider.config 'features/db/database.yml'
-
-  ActiveRecord::Base.establish_connection(config.acts_as_account.to_h).connection
+  connection_config = config.acts_as_account.to_h
+  connection_config.delete(:database)
+  ActiveRecord::Base.establish_connection(connection_config).connection
 end
 
 namespace :features do
