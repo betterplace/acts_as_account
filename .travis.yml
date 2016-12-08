@@ -1,4 +1,3 @@
-sudo: false
 rvm:
   - 1.9
   - 2.0
@@ -8,3 +7,5 @@ rvm:
 matrix:
   allow_failures:
     - rvm: jruby
+sudo: false
+script: rake
