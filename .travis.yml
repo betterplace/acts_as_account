@@ -1,11 +1,4 @@
 rvm:
-  - 1.9
-  - 2.0
-  - 2.1
   - 2.3.3
-  - jruby
-matrix:
-  allow_failures:
-    - rvm: jruby
 sudo: false
 script: rake
