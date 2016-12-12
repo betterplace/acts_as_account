@@ -1,5 +1,14 @@
-require File.dirname(__FILE__) + '/../../lib/acts_as_account'
-ActiveRecord::Base.establish_connection(YAML.load_file(File.dirname(__FILE__) + '/../../db/database.yml')['acts_as_account'])
+if ENV['START_SIMPLECOV'].to_i == 1
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter 'features'
+  end
+end
+
+require 'acts_as_account'
+require 'complex_config'
+config =ComplexConfig::Provider.config File.dirname(__FILE__) + '/../db/database.yml'
+ActiveRecord::Base.establish_connection(config.acts_as_account.to_h)
 
 require 'database_cleaner'
 require 'database_cleaner/cucumber'

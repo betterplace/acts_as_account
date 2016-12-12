@@ -1,36 +1,38 @@
-require 'rubygems'
-require 'bundler'
-begin
-  Bundler.setup(:default, :development)
-  Bundler.require(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
-require 'rake'
+# vim: set filetype=ruby et sw=2 ts=2:
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name        = "acts_as_account"
-    gem.summary     = %Q{acts_as_account implements double entry accounting for Rails models}
-    gem.description = %Q{acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.}
-    gem.email       = "developers@betterplace.org"
-    gem.homepage    = "http://github.com/betterplace/acts_as_account"
-    gem.authors     = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel"]
-    gem.license = 'Apache-2.0'
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+require 'gem_hadar'
+
+GemHadar do
+  name        'acts_as_account'
+  author      [ "Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel" ]
+  email       'developers@betterplace.org'
+  homepage    "http://github.com/betterplace/acts_as_account"
+  summary     'acts_as_account implements double entry accounting for Rails models'
+  description 'acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.'
+  test_dir    'tests'
+  ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc',
+    '.AppleDouble', 'tags', '.byebug_history', '.DS_Store'
+  readme      'README.rdoc'
+  title       "#{name.camelize} -- More Math in Ruby"
+  licenses << 'Apache-2.0'
+
+  dependency 'activerecord',         '>= 4.1', '<6'
+  dependency 'actionpack'  ,         '>= 4.1', '<6'
+  dependency 'database_cleaner',     '~> 1.3'
+  development_dependency 'cucumber', '~> 1.3'
+  development_dependency 'mysql2'
+  development_dependency 'rspec',    '~> 3.1'
+  development_dependency 'simplecov'
+  development_dependency 'complex_config'
 end
 
 def connect_database
-  require 'rubygems'
   require 'active_record'
-  access_data = YAML.load_file(File.dirname(__FILE__) + '/db/database.yml')['acts_as_account']
-  ActiveRecord::Base.establish_connection(Hash[access_data.select { |k, v| k != 'database'}]).connection
+  require 'complex_config'
+  config = ComplexConfig::Provider.config 'features/db/database.yml'
+  connection_config = config.acts_as_account.to_h
+  connection_config.delete(:database)
+  ActiveRecord::Base.establish_connection(connection_config).connection
 end
 
 namespace :features do
@@ -40,7 +42,7 @@ namespace :features do
     conn.execute('DROP DATABASE IF EXISTS acts_as_account')
     conn.execute('CREATE DATABASE acts_as_account')
     conn.execute('USE acts_as_account')
-    load(File.dirname(__FILE__) + '/db/schema.rb')
+    load(File.dirname(__FILE__) + '/features/db/schema.rb')
   end
 end
 
@@ -49,4 +51,4 @@ task :features => :'features:create_database' do
   ruby '-S', 'cucumber'
 end
 
-task :default => :features
+task :test => :features
