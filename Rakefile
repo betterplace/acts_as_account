@@ -16,8 +16,8 @@ GemHadar do
   title       "#{name.camelize} -- More Math in Ruby"
   licenses << 'Apache-2.0'
 
-  dependency 'activerecord',         '>= 4.1', '<6'
-  dependency 'actionpack'  ,         '>= 4.1', '<6'
+  dependency 'activerecord',         '>= 4.1', '<7'
+  dependency 'actionpack'  ,         '>= 4.1', '<7'
   dependency 'database_cleaner',     '~> 1.3'
   development_dependency 'cucumber', '~> 1.3'
   development_dependency 'mysql2'
