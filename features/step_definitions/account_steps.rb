@@ -2,6 +2,11 @@
 
 include ActsAsAccount
 
+require 'rspec'
+RSpec.configure do |config|
+  config.expect_with(:rspec) { |c| c.syntax = :should }
+end
+
 def german_date_time_to_local(datestring, timestring)
   Time.local(*(datestring.split(".").reverse + timestring.split(":")).map(&:to_i))
 end

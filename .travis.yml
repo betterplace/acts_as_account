@@ -1,4 +1,5 @@
 rvm:
   - 2.3.3
+  - 2.6.3
 sudo: false
 script: rake
