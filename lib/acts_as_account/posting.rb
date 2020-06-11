@@ -8,6 +8,8 @@ module ActsAsAccount
     belongs_to :other_account, :class_name => 'ActsAsAccount::Account'
     belongs_to :journal,       :class_name => 'ActsAsAccount::Journal'
     belongs_to :reference, :polymorphic => true
+    has_one :posting_reason
+    has_one :reason, through: :posting_reason
 
     scope :for_reference, -> (ref_id) { where(reference_id: ref_id) }
     scope :soll,       -> { where('amount >= 0') }
