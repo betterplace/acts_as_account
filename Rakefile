@@ -18,12 +18,12 @@ GemHadar do
 
   dependency 'activerecord',         '>= 4.1', '<7'
   dependency 'actionpack'  ,         '>= 4.1', '<7'
-  dependency 'database_cleaner',     '~> 1.3'
   development_dependency 'cucumber', '~> 1.3'
   development_dependency 'mysql2'
   development_dependency 'rspec',    '~> 3.1'
   development_dependency 'simplecov'
   development_dependency 'complex_config'
+  development_dependency 'database_cleaner',     '~> 1.3'
 end
 
 def connect_database
