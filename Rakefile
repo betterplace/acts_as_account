@@ -19,7 +19,7 @@ GemHadar do
   dependency 'activerecord',         '>= 4.1', '<7'
   dependency 'actionpack'  ,         '>= 4.1', '<7'
   development_dependency 'cucumber', '~> 1.3'
-  development_dependency 'mysql2'
+  development_dependency 'sqlite3'
   development_dependency 'rspec',    '~> 3.1'
   development_dependency 'simplecov'
   development_dependency 'complex_config'
@@ -31,18 +31,13 @@ def connect_database
   require 'active_record'
   require 'complex_config'
   config = ComplexConfig::Provider.config 'features/db/database.yml'
-  connection_config = config.acts_as_account.to_h
-  connection_config.delete(:database)
-  ActiveRecord::Base.establish_connection(connection_config).connection
+  ActiveRecord::Base.establish_connection(config.acts_as_account.to_h).connection
 end
 
 namespace :features do
   desc "create test database out of db/schema.rb"
   task :create_database do
     conn = connect_database
-    conn.execute('DROP DATABASE IF EXISTS acts_as_account')
-    conn.execute('CREATE DATABASE acts_as_account')
-    conn.execute('USE acts_as_account')
     load(File.dirname(__FILE__) + '/features/db/schema.rb')
   end
 end
