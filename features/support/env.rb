@@ -14,7 +14,7 @@ require 'database_cleaner'
 require 'database_cleaner/cucumber'
 DatabaseCleaner.strategy = :transaction
 
-Dir[File.dirname(__FILE__) + '/../step_definitions/*.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + '/../step_definitions/*.rb'].sort.each { |file| require file }
 
 require File.dirname(__FILE__) + '/user'
 require File.dirname(__FILE__) + '/abstract_user'
