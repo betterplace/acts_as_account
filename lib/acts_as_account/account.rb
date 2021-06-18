@@ -53,7 +53,7 @@ module ActsAsAccount
         yield
 
       # Trying to create a duplicate key on a unique index raises StatementInvalid
-      rescue ActiveRecord::StatementInvalid => e
+      rescue ActiveRecord::StatementInvalid
         record = if attributes[:holder]
           attributes[:holder].account(attributes[:name])
         else

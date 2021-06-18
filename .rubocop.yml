@@ -1,0 +1,61 @@
+# usage: `rubocop --lint`
+
+AllCops:
+  NewCops: enable
+
+# disable some linters that are not so likely to indicate bugs
+
+Lint/AmbiguousAssignment:
+  Enabled: false
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+Lint/AmbiguousOperator:
+  Enabled: false
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+Lint/AssignmentInCondition:
+  Enabled: false
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+Lint/ConstantResolution:
+  Enabled: false
+Lint/DuplicateBranch:
+  Enabled: false
+Lint/EmptyBlock:
+  Enabled: false
+Lint/EmptyClass:
+  Enabled: false
+Lint/EmptyConditionalBody:
+  Enabled: false
+Lint/EmptyExpression:
+  Enabled: false
+Lint/EmptyFile:
+  Enabled: false
+Lint/EmptyWhen:
+  Enabled: false
+Lint/EnsureReturn:
+  Enabled: false
+Lint/Loop:
+  Enabled: false
+Lint/MissingSuper:
+  Enabled: false
+Lint/MixedRegexpCaptureTypes:
+  Enabled: false
+Lint/NumberConversion:
+  Enabled: false
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+Lint/RedundantStringCoercion:
+  Enabled: false
+Lint/ShadowedArgument:
+  Enabled: false
+Lint/ShadowedException:
+  Enabled: false
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+Lint/SuppressedException:
+  Enabled: false
+Lint/UnusedBlockArgument:
+  Enabled: false
+Lint/UnusedMethodArgument:
+  Enabled: false

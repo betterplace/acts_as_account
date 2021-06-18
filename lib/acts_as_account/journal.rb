@@ -21,7 +21,7 @@ module ActsAsAccount
 
     def transfers
       [].tap do |transfers|
-        postings.in_groups_of(2) { |postings| transfers << Transfer.new(*postings) }
+        postings.each_slice(2) { |postings| transfers << Transfer.new(*postings) }
       end
     end
 

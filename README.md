@@ -1,8 +1,8 @@
-= acts_as_account
+# acts_as_account
 
-{<img src="https://travis-ci.org/betterplace/acts_as_account.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/betterplace/acts_as_account]
+[![Build Status](https://github.com/betterplace/acts_as_account/workflows/tests/badge.svg)](https://github.com/jaynetics/js_regex/actions)
 
-== Theory
+## Theory
 
 ActsAsAccount implements a "Double Entry Accounting" system for your
 Rails-models.
@@ -15,28 +15,28 @@ tables is needed.
 We also hook into the ActionController request cycle to warn the developer
 if a request has left the uncommitted changes in the system.
 
-== Support
+## Support
 
 Rails 4 is supported since version 3.1.0
 
-== How to test
+## How to test
 
 Run the cucumber features from the acs_as_account gem, just execute
 * rake features:create_database
 * cucumber
 
-== Links
+## Links
 
 * Double Entry Accounting in a Relational Database: http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html
 
-== Compatibility
+## Compatibility
 
 With the release of version 2.0.0 acts_as_account is supposed to work for Rails 3. If you still use Rails 2 please use version 1.2.0.
 
-== Credits
+## Credits
 
 This gem was written for the payment backend of betterplace.org by Thies C. Arntzen (http://github.com/thieso2) and Norman Timmler (github.com/unnu).
 
-== Copyright
+## Copyright
 
 Copyright (c) 2010 gut.org gAG

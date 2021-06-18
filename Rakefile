@@ -24,6 +24,7 @@ GemHadar do
   development_dependency 'simplecov'
   development_dependency 'complex_config'
   development_dependency 'database_cleaner',     '~> 1.3'
+  development_dependency 'rubocop'
 end
 
 def connect_database

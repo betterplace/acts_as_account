@@ -94,7 +94,7 @@ When /^I create a Journal via (.+)$/ do |method|
     eval <<-EOT
     @journal = Journal.#{method}
     EOT
-  rescue Exception => @last_exception
+  rescue => @last_exception
   end
 end
 
@@ -152,7 +152,7 @@ end
 
 Then /^the order of the postings is correct$/ do
   # make sure we always book "Soll an Haben"
-  Posting.all.in_groups_of(2) do |from, to|
+  Posting.all.each_slice(2) do |from, to|
     from.amount.should be < 0
     to.amount.should be > 0
   end
