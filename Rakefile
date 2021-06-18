@@ -22,23 +22,22 @@ GemHadar do
   development_dependency 'sqlite3'
   development_dependency 'rspec',    '~> 3.1'
   development_dependency 'simplecov'
-  development_dependency 'complex_config'
   development_dependency 'database_cleaner',     '~> 1.3'
   development_dependency 'rubocop'
 end
 
 def connect_database
   require 'active_record'
-  require 'complex_config'
-  config = ComplexConfig::Provider.config 'features/db/database.yml'
-  ActiveRecord::Base.establish_connection(config.acts_as_account.to_h).connection
+  require 'yaml'
+  db_config = YAML.load_file('features/db/database.yml')
+  ActiveRecord::Base.establish_connection(db_config).connection
 end
 
 namespace :features do
   desc "create test database out of db/schema.rb"
   task :create_database do
     connect_database
-    load(File.dirname(__FILE__) + '/features/db/schema.rb')
+    load("#{__dir__}/features/db/schema.rb")
   end
 end
 

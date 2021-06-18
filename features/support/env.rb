@@ -6,20 +6,20 @@ if ENV['START_SIMPLECOV'].to_i == 1
 end
 
 require 'acts_as_account'
-require 'complex_config'
-config =ComplexConfig::Provider.config File.dirname(__FILE__) + '/../db/database.yml'
-ActiveRecord::Base.establish_connection(config.acts_as_account.to_h)
+require 'yaml'
+db_config = YAML.load_file(__dir__ + '/../db/database.yml')
+ActiveRecord::Base.establish_connection(db_config)
 
 require 'database_cleaner'
 require 'database_cleaner/cucumber'
 DatabaseCleaner.strategy = :transaction
 
-Dir[File.dirname(__FILE__) + '/../step_definitions/*.rb'].sort.each { |file| require file }
+Dir["#{__dir__}/../step_definitions/*.rb"].sort.each { |file| require file }
 
-require File.dirname(__FILE__) + '/user'
-require File.dirname(__FILE__) + '/abstract_user'
-require File.dirname(__FILE__) + '/inheriting_user'
-require File.dirname(__FILE__) + '/cheque'
+require_relative 'user'
+require_relative 'abstract_user'
+require_relative 'inheriting_user'
+require_relative 'cheque'
 
 After do
   ActsAsAccount::Journal.clear_current
