@@ -37,7 +37,7 @@ end
 namespace :features do
   desc "create test database out of db/schema.rb"
   task :create_database do
-    conn = connect_database
+    connect_database
     load(File.dirname(__FILE__) + '/features/db/schema.rb')
   end
 end
