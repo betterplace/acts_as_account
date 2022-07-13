@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
     s.add_development_dependency(%q<simplecov>.freeze, [">= 0"])
     s.add_development_dependency(%q<database_cleaner>.freeze, ["~> 1.3"])
     s.add_development_dependency(%q<rubocop>.freeze, [">= 0"])
-    s.add_runtime_dependency(%q<activerecord>.freeze, [">= 4.1", "< 7"])
-    s.add_runtime_dependency(%q<actionpack>.freeze, [">= 4.1", "< 7"])
+    s.add_runtime_dependency(%q<activerecord>.freeze, [">= 4.1", "< 8"])
+    s.add_runtime_dependency(%q<actionpack>.freeze, [">= 4.1", "< 8"])
   else
     s.add_dependency(%q<gem_hadar>.freeze, ["~> 1.11.0"])
     s.add_dependency(%q<cucumber>.freeze, ["~> 1.3"])
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<simplecov>.freeze, [">= 0"])
     s.add_dependency(%q<database_cleaner>.freeze, ["~> 1.3"])
     s.add_dependency(%q<rubocop>.freeze, [">= 0"])
-    s.add_dependency(%q<activerecord>.freeze, [">= 4.1", "< 7"])
-    s.add_dependency(%q<actionpack>.freeze, [">= 4.1", "< 7"])
+    s.add_dependency(%q<activerecord>.freeze, [">= 4.1", "< 8"])
+    s.add_dependency(%q<actionpack>.freeze, [">= 4.1", "< 8"])
   end
 end
