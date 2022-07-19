@@ -21,6 +21,10 @@ Run the cucumber features from the acs_as_account gem, just execute
 * `rake features:create_database`
 * `cucumber`
 
+## How to release
+
+You need to update the data in `VERSION` and Rakefile and run `rake` (because it uses Gemhadar).
+
 ## Links
 
 * Double Entry Accounting in a Relational Database: [http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html (archived)](https://web.archive.org/web/20080310200243/http://homepages.tcp.co.uk/~m-wigley/gc_wp_ded.html)

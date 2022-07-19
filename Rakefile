@@ -6,7 +6,7 @@ GemHadar do
   name        'acts_as_account'
   author      [ "Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel" ]
   email       'developers@betterplace.org'
-  homepage    "http://github.com/betterplace/acts_as_account"
+  homepage    "https://github.com/betterplace/acts_as_account"
   summary     'acts_as_account implements double entry accounting for Rails models'
   description 'acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.'
   test_dir    'tests'
