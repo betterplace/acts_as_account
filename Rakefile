@@ -6,7 +6,7 @@ GemHadar do
   name        'acts_as_account'
   author      [ "Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel" ]
   email       'developers@betterplace.org'
-  homepage    "http://github.com/betterplace/acts_as_account"
+  homepage    "https://github.com/betterplace/acts_as_account"
   summary     'acts_as_account implements double entry accounting for Rails models'
   description 'acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.'
   test_dir    'tests'
@@ -16,8 +16,8 @@ GemHadar do
   title       "#{name.camelize} -- More Math in Ruby"
   licenses << 'Apache-2.0'
 
-  dependency 'activerecord',         '>= 4.1', '<7'
-  dependency 'actionpack'  ,         '>= 4.1', '<7'
+  dependency 'activerecord',         '>= 5.1', '<8'
+  dependency 'actionpack'  ,         '>= 4.1', '<8'
   development_dependency 'cucumber', '~> 1.3'
   development_dependency 'sqlite3'
   development_dependency 'rspec',    '~> 3.1'
