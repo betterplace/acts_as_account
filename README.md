@@ -24,6 +24,7 @@ Run the cucumber features from the acs_as_account gem, just execute
 ## How to release
 
 You need to update the data in `VERSION` and Rakefile and run `rake` (because it uses Gemhadar).
+`rake gem:push` will push the version to rubygems.
 
 ## Links
 
