@@ -24,3 +24,11 @@ require_relative 'cheque'
 After do
   ActsAsAccount::Journal.clear_current
 end
+
+Before do
+  ActsAsAccount.configure do |config|
+    # folowing are default values
+    # config.persist_postings_count = true
+    # config.persist_balance = true
+  end
+end
