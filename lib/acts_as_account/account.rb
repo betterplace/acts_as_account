@@ -6,16 +6,16 @@ module ActsAsAccount
     has_many :postings, :class_name => 'ActsAsAccount::Posting'
     has_many :journals, :through => :postings
 
-    # TODO: discuss with norman:
-    # validates_presence_of will force an ActiveRecord::find on the object
-    # but we have to create accounts for deleted holder!
-    #
-    # validates_presence_of :holder
-
     class << self
       def recalculate_all_balances
+        warn "[DEPRECATION] `recalculate_all_balances` is deprecated and will be removed in a future version. Please use `recalculate_attributes` instead."
+
+        recalculate_attributes
+      end
+
+      def recalculate_attributes
         find_each do |account|
-          account.recalculate_balances
+          account.recalculate_attributes
         end
       end
 
@@ -63,12 +63,28 @@ module ActsAsAccount
       end
     end
 
-    def recalculate_balances
-      update_columns(
-        balance:        postings.sum(:amount),
-        postings_count: postings.count,
-        last_valuta:    postings.maximum(:valuta)
-      )
+    def balance
+      if ActsAsAccount.configuration.persist_balance
+        super
+      else
+        postings.sum(:amount)
+      end
+    end
+
+    def postings_count
+      if ActsAsAccount.configuration.persist_postings_count
+        super
+      else
+        postings.count
+      end
+    end
+
+    def recalculate_attributes
+      columns = { last_valuta: postings.maximum(:valuta) }
+      columns[:balance] = postings.sum(:amount) if ActsAsAccount.configuration.persist_balance
+      columns[:postings_count] = postings.count if ActsAsAccount.configuration.persist_postings_count
+
+      update_columns(**columns)
     end
 
     def deleteable?
