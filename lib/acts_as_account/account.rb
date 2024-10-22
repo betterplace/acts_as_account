@@ -15,11 +15,7 @@ module ActsAsAccount
     class << self
       def recalculate_all_balances
         find_each do |account|
-          account.update_columns(
-            balance:        account.postings.sum(:amount),
-            postings_count: account.postings.count,
-            last_valuta:    account.postings.maximum(:valuta)
-          )
+          account.recalculate_balances
         end
       end
 
@@ -65,6 +61,14 @@ module ActsAsAccount
         end
         record || raise("Cannot find or create account with attributes #{attributes.inspect}")
       end
+    end
+
+    def recalculate_balances
+      update_columns(
+        balance:        postings.sum(:amount),
+        postings_count: postings.count,
+        last_valuta:    postings.maximum(:valuta)
+      )
     end
 
     def deleteable?
