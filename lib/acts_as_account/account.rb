@@ -64,7 +64,7 @@ module ActsAsAccount
     end
 
     def balance
-      if ActsAsAccount.configuration.persist_balance
+      if ActsAsAccount.configuration.persist_attributes_on_account
         super
       else
         postings.sum(:amount)
@@ -72,19 +72,29 @@ module ActsAsAccount
     end
 
     def postings_count
-      if ActsAsAccount.configuration.persist_postings_count
+      if ActsAsAccount.configuration.persist_attributes_on_account
         super
       else
         postings.count
       end
     end
 
-    def recalculate_attributes
-      columns = { last_valuta: postings.maximum(:valuta) }
-      columns[:balance] = postings.sum(:amount) if ActsAsAccount.configuration.persist_balance
-      columns[:postings_count] = postings.count if ActsAsAccount.configuration.persist_postings_count
+    def last_valuta
+      if ActsAsAccount.configuration.persist_attributes_on_account
+        super
+      else
+        postings.maximum(:valuta)
+      end
+    end
 
-      update_columns(**columns)
+    def recalculate_attributes
+      return unless ActsAsAccount.configuration.persist_attributes_on_account
+
+      update_columns(
+        last_valuta:    postings.maximum(:valuta),
+        balance:        postings.sum(:amount),
+        postings_count: postings.count
+      )
     end
 
     def deleteable?

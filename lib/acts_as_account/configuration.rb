@@ -1,11 +1,10 @@
 module ActsAsAccount
   class Configuration
-    attr_accessor :persist_balance, :persist_postings_count
+    attr_accessor :persist_attributes_on_account
 
     def initialize
       # default values
-      @persist_balance = true
-      @persist_postings_count = true
+      @persist_attributes_on_account = true
     end
   end
 end

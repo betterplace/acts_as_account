@@ -28,7 +28,6 @@ end
 Before do
   ActsAsAccount.configure do |config|
     # Default values:
-    # config.persist_postings_count = true
-    # config.persist_balance = true
+    # config.persist_attributes_on_account = true
   end
 end

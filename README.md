@@ -17,16 +17,14 @@ if a request has left uncommitted changes in the system.
 
 ## Configuration
 
-It is possible to configure if postings_count and balance get persisted on the Account or if it is calculated on demand.
+It is possible to configure if attributes (postings_count, balance, last_valuta) are persisted on the Account or if it is calculated on demand.
 ```
   ActsAsAccount.configure do |config|
     # Default values:
-    # config.persist_postings_count = true
-    # config.persist_balance = true
+    # config.persist_attributes_on_account = true
   end
 ```
-Enabling persistence for any of these attributes means that the sending and receiving account will aquire a lock when making a transfer to ensure correct data.
-This can be problematic in a high load scenario where many transfers to the same accounts are processed in parallel.
+Enabling persistence means that the sending and receiving account will aquire a lock when making a transfer to ensure correct data. This can be problematic in a high load scenario where many transfers to the same accounts are processed in parallel.
 
 
 ## How to test
