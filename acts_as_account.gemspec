@@ -16,12 +16,12 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/betterplace/acts_as_account".freeze
   s.licenses = ["Apache-2.0".freeze]
   s.rdoc_options = ["--title".freeze, "ActsAsAccount -- More Math in Ruby".freeze, "--main".freeze, "README.md".freeze]
-  s.rubygems_version = "3.5.6".freeze
+  s.rubygems_version = "3.5.18".freeze
   s.summary = "acts_as_account implements double entry accounting for Rails models".freeze
 
   s.specification_version = 4
 
-  s.add_development_dependency(%q<gem_hadar>.freeze, ["~> 1.11.0".freeze])
+  s.add_development_dependency(%q<gem_hadar>.freeze, ["~> 1.19".freeze])
   s.add_development_dependency(%q<cucumber>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<sqlite3>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<rspec>.freeze, [">= 0".freeze])
