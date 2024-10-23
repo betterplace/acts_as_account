@@ -18,11 +18,11 @@ GemHadar do
 
   dependency 'activerecord',         '>= 5.1', '<8'
   dependency 'actionpack'  ,         '>= 4.1', '<8'
-  development_dependency 'cucumber', '~> 1.3'
+  development_dependency 'cucumber'
   development_dependency 'sqlite3'
-  development_dependency 'rspec',    '~> 3.1'
+  development_dependency 'rspec'
   development_dependency 'simplecov'
-  development_dependency 'database_cleaner',     '~> 1.3'
+  development_dependency 'database_cleaner'
   development_dependency 'rubocop'
 end
 
@@ -30,7 +30,7 @@ def connect_database
   require 'active_record'
   require 'yaml'
   db_config = YAML.load_file('features/db/database.yml')
-  ActiveRecord::Base.establish_connection(db_config).connection
+  ActiveRecord::Base.establish_connection(db_config).lease_connection
 end
 
 namespace :features do
