@@ -3,14 +3,26 @@ Feature: Transfer
   As a Bank
   I want not to loose money
 
-  Scenario: I transfer money between accounts having holders
+  Scenario: I transfer money between accounts having holders with attribute persistence set to true
     Given I create a user Thies
     Given I create a user Norman
+    Given I configure attribute persistence to be true
     When I transfer 30 € from Thies's account to Norman's account
     Then Thies's account balance is -30 €
     And Norman's account balance is 30 €
     And the order of the postings is correct
-    
+    And the balance field changed on the accounts
+
+  Scenario: I transfer money between accounts having holders with attribute persistence set to false
+    Given I create a user Thies
+    Given I create a user Norman
+    Given I configure attribute persistence to be false
+    When I transfer 30 € from Thies's account to Norman's account
+    Then Thies's account balance is -30 €
+    And Norman's account balance is 30 €
+    And the order of the postings is correct
+    And there are no changes to the accounts
+
   Scenario: I transfer a negative amount between accounts having holders
     Given I create a user Thies
     Given I create a user Norman

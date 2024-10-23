@@ -15,6 +15,10 @@ Given /^I create a user (\w+)$/ do |name|
   User.create!(:name => name)
 end
 
+Given /^I configure attribute persistence to be (\w+)$/ do |flag|
+  ActsAsAccount.configuration.persist_attributes_on_account = flag == 'true'
+end
+
 Given /^I have a user (\w+) that inherits from an abstract class$/ do |name|
   InheritingUser.create!(:name => name)
 end
@@ -67,9 +71,10 @@ Then /^the global (\w+) account balance is (-?\d+) €$/ do |name, balance|
 end
 
 When /^I transfer (-?\d+) € from (\w+)'s account to (\w+)'s account$/ do |amount, from, to|
-  from_account = User.find_by_name(from).account
-  to_account = User.find_by_name(to).account
-  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
+  @from_account = User.find_by_name(from).account
+  @to_account = User.find_by_name(to).account
+  @previous_account_attributes = [@from_account.attributes, @to_account.attributes]
+  Journal.current.transfer(amount.to_i, @from_account, @to_account, @reference, @valuta)
 end
 
 When /^I transfer (\d+) € from global (\w+) account to global (\w+) account$/ do |amount, from, to|
@@ -171,4 +176,13 @@ end
 
 When /^I call 'account' on both it should be possible$/ do
   [@user1, @user2].each { |user| user.account }
+end
+
+Then('there are no changes to the accounts') do
+  @previous_account_attributes.should eq [@from_account.reload.attributes, @to_account.reload.attributes]
+end
+
+Then('the balance field changed on the accounts') do
+  @from_account.reload.read_attribute(:balance).should_not eq @previous_account_attributes.first['balance']
+  @to_account.reload.read_attribute(:balance).should_not eq @previous_account_attributes.last['balance']
 end
