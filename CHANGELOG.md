@@ -3,12 +3,11 @@
 ## 2024-10-23 v3.3.0
 
 * Make persistence of `#postings_count` and `#balance` configurable for accounts:
-  + Provide a flag to persist these attributes
   + Only lock if configuration is set to persist these attributes
   + Rename `recalculate_all_balances` to `recalculate_attributes` and deprecate
     the original method
 * Make gem configurable:
-  + Add configuration options for persistence of `postings_count` and balance
+  + Add configuration option `persist_attributes_on_account` for persistence of `postings_count` and `balance`
 * Update dependencies and Ruby version:
   + Update to newer Ruby version and dependencies
 * Review and README adjustments:
