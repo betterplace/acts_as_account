@@ -10,7 +10,6 @@ module ActsAsAccount
     end
 
     module ClassMethods
-
       def has_account(name = :default)
         has_one :"#{name}_account", -> { where name: name }, class_name: "ActsAsAccount::Account", as: :holder
 

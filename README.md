@@ -15,6 +15,18 @@ tables is needed.
 We also hook into the ActionController request cycle to warn the developer
 if a request has left uncommitted changes in the system.
 
+## Configuration
+
+It is possible to configure if attributes (postings_count, balance, last_valuta) are persisted on the Account or if it is calculated on demand.
+```
+  ActsAsAccount.configure do |config|
+    # Default values:
+    # config.persist_attributes_on_account = true
+  end
+```
+Enabling persistence means that the sending and receiving account will aquire a lock when making a transfer to ensure correct data. This can be problematic in a high load scenario where many transfers to the same accounts are processed in parallel.
+
+
 ## How to test
 
 Run the cucumber features from the acs_as_account gem, just execute
@@ -23,7 +35,7 @@ Run the cucumber features from the acs_as_account gem, just execute
 
 ## How to release
 
-You need to update the data in `VERSION` and Rakefile and run `rake` (because it uses Gemhadar).
+You need to update the data in `VERSION` and Rakefile and run `rake` (because it uses GemHadar).
 `rake gem:push` will push the version to rubygems.
 
 ## Links

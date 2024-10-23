@@ -6,20 +6,16 @@ module ActsAsAccount
     has_many :postings, :class_name => 'ActsAsAccount::Posting'
     has_many :journals, :through => :postings
 
-    # TODO: discuss with norman:
-    # validates_presence_of will force an ActiveRecord::find on the object
-    # but we have to create accounts for deleted holder!
-    #
-    # validates_presence_of :holder
-
     class << self
       def recalculate_all_balances
+        warn "[DEPRECATION] `recalculate_all_balances` is deprecated and will be removed in a future version. Please use `recalculate_attributes` instead."
+
+        recalculate_attributes
+      end
+
+      def recalculate_attributes
         find_each do |account|
-          account.update_columns(
-            balance:        account.postings.sum(:amount),
-            postings_count: account.postings.count,
-            last_valuta:    account.postings.maximum(:valuta)
-          )
+          account.recalculate_attributes
         end
       end
 
@@ -65,6 +61,40 @@ module ActsAsAccount
         end
         record || raise("Cannot find or create account with attributes #{attributes.inspect}")
       end
+    end
+
+    def balance
+      if ActsAsAccount.configuration.persist_attributes_on_account
+        super
+      else
+        postings.sum(:amount)
+      end
+    end
+
+    def postings_count
+      if ActsAsAccount.configuration.persist_attributes_on_account
+        super
+      else
+        postings.count
+      end
+    end
+
+    def last_valuta
+      if ActsAsAccount.configuration.persist_attributes_on_account
+        super
+      else
+        postings.maximum(:valuta)
+      end
+    end
+
+    def recalculate_attributes
+      return unless ActsAsAccount.configuration.persist_attributes_on_account
+
+      update_columns(
+        last_valuta:    postings.maximum(:valuta),
+        balance:        postings.sum(:amount),
+        postings_count: postings.count
+      )
     end
 
     def deleteable?

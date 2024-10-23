@@ -24,3 +24,10 @@ require_relative 'cheque'
 After do
   ActsAsAccount::Journal.clear_current
 end
+
+Before do
+  ActsAsAccount.configure do |config|
+    # Default values:
+    # config.persist_attributes_on_account = true
+  end
+end

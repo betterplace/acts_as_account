@@ -36,7 +36,7 @@ module ActsAsAccount
 
         # to avoid possible deadlocks we need to ensure that the locking order is always
         # the same therfore the sort by id.
-        [from_account, to_account].sort_by(&:id).map(&:lock!)
+        [from_account, to_account].sort_by(&:id).map(&:lock!) if ActsAsAccount.configuration.persist_attributes_on_account
 
         add_posting(-amount,  from_account,   to_account, reference, valuta)
         add_posting( amount,    to_account, from_account, reference, valuta)
@@ -53,10 +53,15 @@ module ActsAsAccount
           :reference => reference,
           :valuta => valuta)
 
-        account.class.update_counters account.id, :postings_count => 1, :balance => posting.amount
+        update_attributes_on(account, posting)
 
         posting.save(:validate => false)
-        account.save(:validate => false)
+      end
+
+      def update_attributes_on(account, posting)
+        return unless ActsAsAccount.configuration.persist_attributes_on_account
+
+        account.class.update_counters account.id, postings_count: 1, balance: posting.amount
       end
   end
 end
