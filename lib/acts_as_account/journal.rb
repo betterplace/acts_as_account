@@ -32,9 +32,11 @@ module ActsAsAccount
 
         logger.debug { "ActsAsAccount::Journal.transfer amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) valuta:#{valuta}" } if logger
 
-        # to avoid possible deadlocks we need to ensure that the locking order is always
+        # To avoid possible deadlocks we need to ensure that the locking order is always
         # the same therfore the sort by id.
-        [from_account, to_account].sort_by(&:id).map(&:lock!) if ActsAsAccount.configuration.persist_attributes_on_account
+        if ActsAsAccount.configuration.persist_attributes_on_account
+          [from_account, to_account].sort_by(&:id).each(&:lock!)
+        end
 
         posting1 = build_posting(-amount,  from_account,   to_account, reference, valuta)
         posting2 = build_posting( amount,    to_account, from_account, reference, valuta)
