@@ -20,9 +20,7 @@ module ActsAsAccount
     end
 
     def transfers
-      [].tap do |transfers|
-        postings.each_slice(2) { |postings| transfers << Transfer.new(*postings) }
-      end
+      postings.each_slice(2).map { |postings| Transfer.new(*postings) }
     end
 
     def transfer(amount, from_account, to_account, reference = nil, valuta = Time.now)
