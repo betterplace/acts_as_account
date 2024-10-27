@@ -38,30 +38,32 @@ module ActsAsAccount
         # the same therfore the sort by id.
         [from_account, to_account].sort_by(&:id).map(&:lock!) if ActsAsAccount.configuration.persist_attributes_on_account
 
-        add_posting(-amount,  from_account,   to_account, reference, valuta)
-        add_posting( amount,    to_account, from_account, reference, valuta)
+        posting1 = build_posting(-amount,  from_account,   to_account, reference, valuta)
+        posting2 = build_posting( amount,    to_account, from_account, reference, valuta)
+
+        postings.model.insert_all([ posting1.attributes, posting2.attributes ])
+
+        update_attributes_on(from_account, -amount)
+        update_attributes_on(to_account,    amount)
       end
     end
 
     private
 
-      def add_posting(amount, account, other_account, reference, valuta)
-        posting = postings.build(
-          :amount => amount,
-          :account => account,
+      def build_posting(amount, account, other_account, reference, valuta)
+        postings.build(
+          :amount        => amount,
+          :account       => account,
           :other_account => other_account,
-          :reference => reference,
-          :valuta => valuta)
-
-        update_attributes_on(account, posting)
-
-        posting.save(:validate => false)
+          :reference     => reference,
+          :valuta        => valuta
+        )
       end
 
-      def update_attributes_on(account, posting)
+      def update_attributes_on(account, amount)
         return unless ActsAsAccount.configuration.persist_attributes_on_account
 
-        account.class.update_counters account.id, postings_count: 1, balance: posting.amount
+        account.class.update_counters account.id, postings_count: 1, balance: amount
       end
   end
 end
