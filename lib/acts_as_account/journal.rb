@@ -30,10 +30,21 @@ module ActsAsAccount
           amount, from_account, to_account = -amount, to_account, from_account
         end
 
-        logger.debug { "ActsAsAccount::Journal.transfer amount: #{amount} from:#{from_account.id} to:#{to_account.id} reference:#{reference.class.name}(#{reference.id}) valuta:#{valuta}" } if logger
+        if logger
+          logger.debug(
+            [
+              "ActsAsAccount::Journal.transfer",
+              "amount: #{amount}",
+              "from: #{from_account.id}",
+              "to: #{to_account.id}",
+              "reference: #{reference.class.name}(#{reference.id})",
+              "valuta: #{valuta}",
+            ].join(' ')
+          )
+        end
 
-        # To avoid possible deadlocks we need to ensure that the locking order is always
-        # the same therfore the sort by id.
+        # To avoid possible deadlocks we need to ensure that the locking order
+        # is always the same therfore the sort by id.
         if ActsAsAccount.configuration.persist_attributes_on_account
           [from_account, to_account].sort_by(&:id).each(&:lock!)
         end
