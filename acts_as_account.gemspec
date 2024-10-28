@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
-# stub: acts_as_account 3.3.0 ruby lib
+# stub: acts_as_account 3.4.0 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "acts_as_account".freeze
-  s.version = "3.3.0".freeze
+  s.version = "3.4.0".freeze
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Thies C. Arntzen, Norman Timmler, Matthias Frick, Phillip Oertel".freeze]
-  s.date = "2024-10-23"
+  s.date = "2024-10-28"
   s.description = "acts_as_account implements double entry accounting for Rails models. Your models get accounts and you can do consistent transactions between them. Since the documentation is sparse, see the transfer.feature for usage examples.".freeze
   s.email = "developers@betterplace.org".freeze
   s.extra_rdoc_files = ["README.md".freeze, "lib/acts_as_account.rb".freeze, "lib/acts_as_account/account.rb".freeze, "lib/acts_as_account/active_record_extensions.rb".freeze, "lib/acts_as_account/configuration.rb".freeze, "lib/acts_as_account/global_account.rb".freeze, "lib/acts_as_account/journal.rb".freeze, "lib/acts_as_account/manually_created_account.rb".freeze, "lib/acts_as_account/posting.rb".freeze, "lib/acts_as_account/rails.rb".freeze, "lib/acts_as_account/transfer.rb".freeze, "lib/acts_as_account/version.rb".freeze]
