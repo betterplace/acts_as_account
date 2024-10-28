@@ -52,10 +52,12 @@ module ActsAsAccount
         posting1 = build_posting(-amount,  from_account,   to_account, reference, valuta)
         posting2 = build_posting( amount,    to_account, from_account, reference, valuta)
 
-        postings.model.insert_all([ posting1.attributes, posting2.attributes ])
+        result = postings.model.insert_all([ posting1.attributes, posting2.attributes ])
 
         update_attributes_on(from_account, -amount)
         update_attributes_on(to_account,    amount)
+
+        !!result
       end
     end
 

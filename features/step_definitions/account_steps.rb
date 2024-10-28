@@ -74,13 +74,13 @@ When /^I transfer (-?\d+) € from (\w+)'s account to (\w+)'s account$/ do |amou
   @from_account = User.find_by_name(from).account
   @to_account = User.find_by_name(to).account
   @previous_account_attributes = [@from_account.attributes, @to_account.attributes]
-  Journal.current.transfer(amount.to_i, @from_account, @to_account, @reference, @valuta)
+  Journal.current.transfer(amount.to_i, @from_account, @to_account, @reference, @valuta) == true
 end
 
 When /^I transfer (\d+) € from global (\w+) account to global (\w+) account$/ do |amount, from, to|
   from_account = Account.for(from)
   to_account = Account.for(to)
-  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta)
+  Journal.current.transfer(amount.to_i, from_account, to_account, @reference, @valuta) == true
 end
 
 Then /^the balance\-sheet should be:$/ do |table|
