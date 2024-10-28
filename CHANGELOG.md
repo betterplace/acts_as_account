@@ -1,5 +1,20 @@
 # Changes
 
+## 2024-10-28 v3.4.0
+
+* Improve Journaling for Transfer Operations:
+  + Renamed `add_posting` to `build_posting` in `ActsAsAccount::Journal`
+  + Replaced direct database insertion with two insert statements with a call to `model.insert_all` in `transfer` method
+  + Updated `update_attributes_on` to directly count amounts of postings
+* Ensure consistent locking order for account transfers:
+  + Use each if we aren't interested in the `lock!` results
+  + Make if condition readable even on smaller displays
+* Improved logging for transfer method in Journal class:
+  + Improved formatting of debug message using array.join.
+  + Improved indenting of comment
+* Improved journal functionality for transfers:
+  + Replaced `tap` with a more concise implementation using `map`
+
 ## 2024-10-23 v3.3.0
 
 * Make persistence of `#postings_count` and `#balance` configurable for accounts:
