@@ -1,5 +1,14 @@
 # Changes
 
+## 2024-10-28 v3.4.1
+
+* Improved account management features:
+  * Update `Journal.current.transfer` to return a boolean value indicating success.
+  * Modify `transfer()` method in `lib/acts_as_account/journal.rb` to
+    check the result of `postings.model.insert_all`.
+  * Validate the transfer result in `german_date_time_to_local` and `When /^I
+    transfer ...$` step definitions.
+
 ## 2024-10-28 v3.4.0
 
 * Improve Journaling for Transfer Operations:
