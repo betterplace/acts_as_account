@@ -52,4 +52,4 @@ This gem was written for the payment backend of betterplace.org by [Thies C. Arn
 
 ## Copyright
 
-Copyright (c) 2010, 2022 [gut.org gAG](https://gut.org), released under the [Apache License v2.0](LICENSE).
+Copyright (c) 2010-2024 [gut.org gAG](https://gut.org), released under the [Apache License v2.0](LICENSE).
