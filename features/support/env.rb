@@ -6,9 +6,7 @@ if ENV['START_SIMPLECOV'].to_i == 1
 end
 
 require 'acts_as_account'
-require 'yaml'
-db_config = YAML.load_file(__dir__ + '/../db/database.yml')
-ActiveRecord::Base.establish_connection(db_config)
+require_relative 'db'
 
 require 'database_cleaner'
 require 'database_cleaner/cucumber'

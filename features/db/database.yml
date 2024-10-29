@@ -1,5 +1,13 @@
-adapter: sqlite3
-encoding: utf8
-database: acts_as_account.sqlite
-username: root
-host: localhost
+mysql:
+  adapter: mysql2
+  encoding: utf8
+  database: acts_as_account
+  username: root
+  host: 127.0.0.1
+  port: 3306
+sqlite:
+  adapter: sqlite3
+  encoding: utf8
+  database: acts_as_account.sqlite
+  username: root
+  host: localhost

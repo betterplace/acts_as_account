@@ -1,0 +1,12 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    ports:
+    - "127.0.0.1:3306:3306"
+    volumes:
+    - "mysql-data:/var/lib/mysql:delegated"
+    environment:
+      - "MYSQL_ALLOW_EMPTY_PASSWORD=1"
+volumes:
+  mysql-data:
