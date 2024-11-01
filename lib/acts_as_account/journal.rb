@@ -37,7 +37,7 @@ module ActsAsAccount
               "amount: #{amount}",
               "from: #{from_account.id}",
               "to: #{to_account.id}",
-              "reference: #{reference.class.name}(#{reference.id})",
+              "reference: #{reference.class.name}(#{reference&.id})",
               "valuta: #{valuta}",
             ].join(' ')
           )

@@ -28,4 +28,7 @@ Before do
     # Default values:
     # config.persist_attributes_on_account = true
   end
+  if ENV['DATABASE_LOG'].to_i == 1 && ActiveRecord::Base.logger.nil?
+    ActiveRecord::Base.logger = Logger.new(File.open("log/cucumber.log", 'a'))
+  end
 end

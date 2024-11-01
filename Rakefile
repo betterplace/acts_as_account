@@ -17,7 +17,7 @@ GemHadar do
 
   test_dir    'tests'
   ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc',
-    '.AppleDouble', 'tags', '.byebug_history', '.DS_Store'
+    '.AppleDouble', 'tags', '.byebug_history', '.DS_Store', '/log/*'
   readme      'README.md'
   title       "#{name.camelize} -- More Math in Ruby"
   licenses << 'Apache-2.0'

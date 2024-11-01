@@ -3,6 +3,7 @@
 .DS_Store
 .byebug_history
 .rvmrc
+/log/*
 Gemfile.lock
 coverage
 pkg
