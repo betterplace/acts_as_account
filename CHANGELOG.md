@@ -1,5 +1,25 @@
 # Changes
 
+## 2024-11-01 v3.4.2
+
+* Add compact to attributes handling of transfer method:
+  + Use `posting1.attributes.compact` and `posting2.attributes.compact` instead
+    of just `posting1.attributes` and `posting2.attributes`.
+* Update logging configuration and ignore log files:
+  + Update `DATABASE_LOG` handling in `features/support/env.rb`
+  + Add `log/*` to `.gitignore`
+  + Modify `transfer` method in `lib/acts_as_account/journal.rb` to safely
+    reference objects.
+  + Added log directory
+* Add mysql for database testing:
+  + Add `mysql2` as a development dependency to Gemfile
+  + Update `acts_as_account.gemspec` to reflect new dependencies and version
+  + Update Rakefile to be able to use `mysql2` for connecting to MySQL database
+  + Add Docker Compose file for running MySQL service for testing
+  + Update database.yml files to point to MySQL or SQLite databases
+  + Create a new file features/support/db.rb for setting up the database connection
+* Update copyright year upto **2024**
+
 ## 2024-10-28 v3.4.1
 
 * Improved account management features:
