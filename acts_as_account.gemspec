@@ -30,6 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<database_cleaner>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<rubocop>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<debug>.freeze, [">= 0".freeze])
-  s.add_runtime_dependency(%q<activerecord>.freeze, [">= 5.1".freeze, "< 8".freeze])
-  s.add_runtime_dependency(%q<actionpack>.freeze, [">= 4.1".freeze, "< 8".freeze])
+  s.add_runtime_dependency(%q<activerecord>.freeze, [">= 5.1".freeze, "<= 8".freeze])
+  s.add_runtime_dependency(%q<actionpack>.freeze, [">= 4.1".freeze, "<= 8".freeze])
 end
