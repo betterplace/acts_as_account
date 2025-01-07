@@ -1,5 +1,11 @@
 # Changes
 
+## 2025-01-07 v3.5.0
+
+* Relax `active_record` and `action_view` dependencies to allow for Rails 8
+  compatibility.
+* Updated `acts_as_account.gemspec`.
+
 ## 2024-11-01 v3.4.2
 
 * Add compact to attributes handling of transfer method:
