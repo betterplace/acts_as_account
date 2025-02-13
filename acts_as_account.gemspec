@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: acts_as_account 3.5.0 ruby lib
+# stub: acts_as_account 3.5.1 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "acts_as_account".freeze
-  s.version = "3.5.0".freeze
+  s.version = "3.5.1".freeze
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
