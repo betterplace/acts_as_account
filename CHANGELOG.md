@@ -1,5 +1,9 @@
 # Changes
 
+## 2025-02-13 v3.5.1
+
+* Update some dependencies.
+
 ## 2025-01-07 v3.5.0
 
 * Relax `active_record` and `action_view` dependencies to allow for Rails 8
