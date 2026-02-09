@@ -54,8 +54,8 @@ module ActsAsAccount
 
         result = postings.model.insert_all([ posting1.attributes.compact, posting2.attributes.compact ])
 
-        update_attributes_on(from_account, -amount)
-        update_attributes_on(to_account,    amount)
+        update_attributes_on(from_account, -amount, valuta)
+        update_attributes_on(to_account,    amount, valuta)
 
         !!result
       end
@@ -73,10 +73,11 @@ module ActsAsAccount
         )
       end
 
-      def update_attributes_on(account, amount)
+      def update_attributes_on(account, amount, valuta)
         return unless ActsAsAccount.configuration.persist_attributes_on_account
 
         account.class.update_counters account.id, postings_count: 1, balance: amount
+        account.update_attribute :last_valuta, valuta
       end
   end
 end
