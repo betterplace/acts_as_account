@@ -7,7 +7,7 @@ Feature: Transfer
     Given I create a user Thies
     Given I create a user Norman
     Given I configure attribute persistence to be true
-    When I transfer 30 € from Thies's account to Norman's account
+When I transfer 30 € from Thies's account to Norman's account and specify 22.05.1968 07:45 as the booking time
     Then Thies's account balance is -30 €
     And Norman's account balance is 30 €
     And the order of the postings is correct
