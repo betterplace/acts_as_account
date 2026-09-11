@@ -186,3 +186,13 @@ Then('the balance field changed on the accounts') do
   @from_account.reload.read_attribute(:balance).should_not eq @previous_account_attributes.first['balance']
   @to_account.reload.read_attribute(:balance).should_not eq @previous_account_attributes.last['balance']
 end
+
+Then('the last_valuta field changed on the accounts') do
+  @from_account.reload.read_attribute(:last_valuta).should_not eq @previous_account_attributes.first['last_valuta']
+  @to_account.reload.read_attribute(:last_valuta).should_not eq @previous_account_attributes.last['last_valuta']
+end
+
+Then('the postings_count field changed on the accounts') do
+  @from_account.reload.read_attribute(:postings_count).should_not eq @previous_account_attributes.first['postings_count']
+  @to_account.reload.read_attribute(:postings_count).should_not eq @previous_account_attributes.last['postings_count']
+end
